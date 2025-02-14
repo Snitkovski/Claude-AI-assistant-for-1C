@@ -44,4 +44,5 @@
     </synonym>
     <languageCode>en</languageCode>
   </languages>
+  <subsystems>Subsystem.AI</subsystems>
 </mdclass:Configuration>
