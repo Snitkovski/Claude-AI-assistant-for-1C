@@ -7,4 +7,7 @@
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>
+  <content>Constant.Max_Tokens</content>
+  <content>Constant.API_Key</content>
+  <content>Constant.Model</content>
 </mdclass:Subsystem>

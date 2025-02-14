@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Constant xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="5b2cee8b-966a-41de-a7b8-0e3564b97b36">
+  <producedTypes>
+    <managerType typeId="fc8ba9bc-a8d9-4a6c-963d-b915224c9cb9" valueTypeId="3922face-5d73-408d-be6f-505015662fb3"/>
+    <valueManagerType typeId="5f6bb6cc-87a8-441d-b9a2-240df6df21a6" valueTypeId="595c8de2-0d60-4db8-b78b-359796db2e0f"/>
+    <valueKeyType typeId="f6a45cd3-dad2-4d40-b5e1-65cd83f835cb" valueTypeId="6b6915df-fa74-4601-9592-9bed0c52d5ee"/>
+  </producedTypes>
+  <name>Max_Tokens</name>
+  <synonym>
+    <key>en</key>
+    <value>Max tokens</value>
+  </synonym>
+  <type>
+    <types>Number</types>
+    <numberQualifiers>
+      <precision>7</precision>
+      <nonNegative>true</nonNegative>
+    </numberQualifiers>
+  </type>
+  <useStandardCommands>true</useStandardCommands>
+  <minValue xsi:type="core:UndefinedValue"/>
+  <maxValue xsi:type="core:UndefinedValue"/>
+  <dataLockControlMode>Managed</dataLockControlMode>
+</mdclass:Constant>
