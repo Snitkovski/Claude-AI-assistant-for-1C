@@ -45,7 +45,9 @@
     <languageCode>en</languageCode>
   </languages>
   <subsystems>Subsystem.AI</subsystems>
+  <commonModules>CommonModule.CommonClaudeAI</commonModules>
   <constants>Constant.API_Key</constants>
   <constants>Constant.Max_Tokens</constants>
   <constants>Constant.Model</constants>
+  <dataProcessors>DataProcessor.ClaudeAIAssistant</dataProcessors>
 </mdclass:Configuration>

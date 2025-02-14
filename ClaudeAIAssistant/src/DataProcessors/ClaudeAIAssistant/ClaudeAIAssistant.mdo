@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="7e58bfc0-748c-4daa-ae33-2cd0ece94411">
+  <producedTypes>
+    <objectType typeId="15804837-1221-4a67-929f-672fd3b3474c" valueTypeId="f3fa9edd-c229-485b-83e9-1ae40869b7a2"/>
+    <managerType typeId="94974deb-6b6b-4c31-8573-e14bb2587d60" valueTypeId="2ce491ee-2b1c-483f-b6cb-384ebebeb1c5"/>
+  </producedTypes>
+  <name>ClaudeAIAssistant</name>
+  <synonym>
+    <key>en</key>
+    <value>Claude AIAssistant</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.ClaudeAIAssistant.Form.Assistant</defaultForm>
+  <attributes uuid="03e73274-c599-430e-8e27-78df4e6f5e6c">
+    <name>QueryText</name>
+    <synonym>
+      <key>en</key>
+      <value>Query text</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <forms uuid="12370739-9888-407f-b837-b74fad16fc59">
+    <name>Assistant</name>
+    <synonym>
+      <key>en</key>
+      <value>Assistant</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>
