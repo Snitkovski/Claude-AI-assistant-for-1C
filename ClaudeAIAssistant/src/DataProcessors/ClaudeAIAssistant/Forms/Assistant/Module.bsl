@@ -70,9 +70,16 @@ Procedure SendRequestAtServer()
 	
 	Response = Connection.CallHTTPMethod("POST", Request);
 	
+	AIAnswer = Response.GetBodyAsString();
+
+	JSONReader = New JSONReader;
+	JSONReader.SetString(AIAnswer);
+	ResponseData = ReadJSON(JSONReader);
+	JSONReader.Close();
+	
 	NewChatMessage = Chat.Add();
 	NewChatMessage.Role = "assistant";
-	NewChatMessage.Message = Response.GetBodyAsString();
+	NewChatMessage.Message = ResponseData.content[0].text;
 EndProcedure
 
 #EndRegion
