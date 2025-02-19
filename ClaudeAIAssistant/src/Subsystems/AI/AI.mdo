@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:Subsystem xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="43a49da4-2c35-4351-8e49-782d922238ad">
+<mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="43a49da4-2c35-4351-8e49-782d922238ad">
   <name>AI</name>
   <synonym>
     <key>en</key>
@@ -7,7 +7,11 @@
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>
+  <picture xsi:type="core:PictureRef">
+    <picture>CommonPicture.ClaudeAILogo</picture>
+  </picture>
   <content>Constant.Max_Tokens</content>
   <content>Constant.API_Key</content>
   <content>Constant.Model</content>
+  <content>CommonPicture.ClaudeAILogo</content>
 </mdclass:Subsystem>
