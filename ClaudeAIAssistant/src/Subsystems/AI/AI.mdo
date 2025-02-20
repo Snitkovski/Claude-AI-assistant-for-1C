@@ -15,4 +15,5 @@
   <content>Constant.Model</content>
   <content>CommonPicture.ClaudeAILogo</content>
   <content>DataProcessor.ClaudeAIAssistant</content>
+  <content>CommonPicture.DataImport</content>
 </mdclass:Subsystem>

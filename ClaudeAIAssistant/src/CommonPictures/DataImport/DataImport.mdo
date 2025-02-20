@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d9d84133-5eac-498b-a336-f055768058bd">
+  <name>DataImport</name>
+  <synonym>
+    <key>en</key>
+    <value>Data import</value>
+  </synonym>
+</mdclass:CommonPicture>

@@ -46,6 +46,7 @@
   </languages>
   <subsystems>Subsystem.AI</subsystems>
   <commonPictures>CommonPicture.ClaudeAILogo</commonPictures>
+  <commonPictures>CommonPicture.DataImport</commonPictures>
   <commonModules>CommonModule.CommonClaudeAI</commonModules>
   <constants>Constant.API_Key</constants>
   <constants>Constant.Max_Tokens</constants>
