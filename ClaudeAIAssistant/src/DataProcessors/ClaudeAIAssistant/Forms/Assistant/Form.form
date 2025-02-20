@@ -76,6 +76,47 @@
         <horizontalAlign>Left</horizontalAlign>
       </extInfo>
     </items>
+    <items xsi:type="form:FormField">
+      <name>ChatMessages</name>
+      <id>71</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ChatMessages</segments>
+      </dataPath>
+      <titleLocation>None</titleLocation>
+      <extendedTooltip>
+        <name>ChatMessagesExtendedTooltip</name>
+        <id>73</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>ChatMessagesContextMenu</name>
+        <id>72</id>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>HTMLDocumentField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:HtmlFieldExtInfo">
+        <width>50</width>
+        <autoMaxWidth>true</autoMaxWidth>
+        <height>10</height>
+        <autoMaxHeight>true</autoMaxHeight>
+        <horizontalStretch>true</horizontalStretch>
+        <verticalStretch>true</verticalStretch>
+      </extInfo>
+    </items>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -274,10 +315,10 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Chat</name>
+    <name>ChatData</name>
     <title>
       <key>en</key>
-      <value>Chat</value>
+      <value>Chat data</value>
     </title>
     <id>2</id>
     <valueType>
@@ -359,7 +400,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Attribute1</name>
+    <name>ChatMessages</name>
+    <title>
+      <key>en</key>
+      <value>Chat messages</value>
+    </title>
     <id>7</id>
     <valueType>
       <types>String</types>

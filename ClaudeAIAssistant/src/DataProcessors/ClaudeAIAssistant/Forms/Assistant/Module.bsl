@@ -11,7 +11,7 @@ EndProcedure
 
 &AtClient
 Procedure Clear(Command)
-	Chat.Clear();
+	ChatData.Clear();
 EndProcedure
 
 &AtClient
@@ -39,7 +39,7 @@ Procedure SendRequestAtServer()
 	Headers.Insert("x-api-key", AIParameters.API_Key);
 	
 	Messages = New Array;
-	For Each Message In Chat Do
+	For Each Message In ChatData Do
 		HistoryMessage = New Map;
 		HistoryMessage.Insert("role", Message.Role);
 		HistoryMessage.Insert("content", Message.Message);
@@ -51,7 +51,7 @@ Procedure SendRequestAtServer()
 	NewMessage.Insert("content", Object.QueryText);
 	Messages.Add(NewMessage);
 	
-	NewChatMessage = Chat.Add();
+	NewChatMessage = ChatData.Add();
 	NewChatMessage.Role = "user";
 	NewChatMessage.Message = Object.QueryText;
 	
@@ -77,9 +77,40 @@ Procedure SendRequestAtServer()
 	ResponseData = ReadJSON(JSONReader);
 	JSONReader.Close();
 	
-	NewChatMessage = Chat.Add();
+	NewChatMessage = ChatData.Add();
 	NewChatMessage.Role = "assistant";
-	NewChatMessage.Message = ResponseData.content[0].text;
+	
+	If ResponseData.Property("error") Then
+		NewChatMessage.Message = ResponseData.error.message;
+	Else
+		NewChatMessage.Message = ResponseData.content[0].text;
+	EndIf;
+	
+	
+	UpdateChatMessages();
+EndProcedure
+
+&AtServer
+Procedure UpdateChatMessages()
+	ChatMessages = "<!DOCTYPE html> <html><body>";
+	ChatMessageTemplate = "<p style=""text-align: justify;""><img height = ""%1"" width = ""%2"" src=""data:image/jpg;base64,%3""/>
+							|<span style=""background-color: %4"">%5</span></p>";
+	
+	For Each Message In ChatData Do
+		If Message.Role = "user" Then
+			PicData = PictureLib.UserWithoutPhoto.GetBinaryData();
+			PicData = Base64String(PicData);
+			MessageText = StrTemplate(ChatMessageTemplate, "44", "32", PicData, "#ccffcc", Message.Message);
+		Else
+			PicData = PictureLib.ClaudeAILogo.GetBinaryData();
+			PicData = Base64String(PicData);
+			MessageText = StrTemplate(ChatMessageTemplate, "32", "32", PicData, "#ffcc99", Message.Message);
+		EndIf;
+		
+		ChatMessages = ChatMessages + MessageText;
+	EndDo;
+	
+	ChatMessages = ChatMessages + "</body></html>";
 EndProcedure
 
 #EndRegion
