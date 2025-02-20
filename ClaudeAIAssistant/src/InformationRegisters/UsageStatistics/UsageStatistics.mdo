@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="7772ea0a-cfa0-457a-bdcc-618cfe4f5102">
+  <producedTypes>
+    <selectionType typeId="a3ab39c4-f54a-4721-aea3-8f53f221010c" valueTypeId="d9474d7f-cb9a-42f6-aedc-b47682826fba"/>
+    <listType typeId="8707a925-d2ca-426d-a88c-8bd1a032acc4" valueTypeId="4341a4e6-0896-4abf-9f97-40eab66c7d38"/>
+    <managerType typeId="17987f04-84db-4bb5-85a8-8272cc5a9118" valueTypeId="f21c0ac8-8b98-418a-843c-c6d3d629cb3e"/>
+    <recordSetType typeId="e8b9df28-3601-4e01-9d2c-91aaeeb83cb2" valueTypeId="8e65641a-93ec-4eab-a863-0b5650d409e0"/>
+    <recordKeyType typeId="5555b6b1-d3c5-48f0-84c1-5b20be46b8c2" valueTypeId="ee54671a-114e-4865-ac77-7fe251d342c0"/>
+    <recordType typeId="23f49c6b-7218-47db-9906-8c1d5ec80f6e" valueTypeId="87397e8e-c3f0-4513-8fb1-7d015c50dd45"/>
+    <recordManagerType typeId="49e9bc3b-bea0-49a8-b600-c6a1d042963d" valueTypeId="4fa0d358-1698-469f-a80c-a644733f72d3"/>
+  </producedTypes>
+  <name>UsageStatistics</name>
+  <synonym>
+    <key>en</key>
+    <value>Usage statistics</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <defaultRecordForm>InformationRegister.UsageStatistics.Form.RecordForm</defaultRecordForm>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <recordPresentation>
+    <key>en</key>
+    <value>Usage statistics</value>
+  </recordPresentation>
+  <resources uuid="62111dc3-1a13-4dc2-ac24-6e4c63b7c54b">
+    <name>InputTokens</name>
+    <synonym>
+      <key>en</key>
+      <value>Input tokens</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
+  <resources uuid="e0f151cc-c96e-4e2f-9c18-11ee682ef42e">
+    <name>OutputTokens</name>
+    <synonym>
+      <key>en</key>
+      <value>Output tokens</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
+  <dimensions uuid="91ce8289-c2dd-49e2-9119-629294fd05a2">
+    <name>User</name>
+    <synonym>
+      <key>en</key>
+      <value>User</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <forms uuid="6821dcb8-103e-4354-90b3-79d98fc663e6">
+    <name>RecordForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Record form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:InformationRegister>

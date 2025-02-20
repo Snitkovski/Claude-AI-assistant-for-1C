@@ -12,6 +12,8 @@ EndProcedure
 &AtClient
 Procedure Clear(Command)
 	ChatData.Clear();
+	
+	UpdateChatMessages();
 EndProcedure
 
 &AtClient

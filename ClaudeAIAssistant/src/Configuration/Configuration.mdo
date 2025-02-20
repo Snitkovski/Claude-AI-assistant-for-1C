@@ -53,4 +53,5 @@
   <constants>Constant.Max_Tokens</constants>
   <constants>Constant.Model</constants>
   <dataProcessors>DataProcessor.ClaudeAIAssistant</dataProcessors>
+  <informationRegisters>InformationRegister.UsageStatistics</informationRegisters>
 </mdclass:Configuration>
