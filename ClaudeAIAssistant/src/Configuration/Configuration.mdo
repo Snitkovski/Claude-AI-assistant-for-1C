@@ -48,6 +48,8 @@
   <commonPictures>CommonPicture.ClaudeAILogo</commonPictures>
   <commonPictures>CommonPicture.DataImport</commonPictures>
   <commonPictures>CommonPicture.UserWithoutPhoto</commonPictures>
+  <roles>Role.ClaudeAI_Administrator</roles>
+  <roles>Role.ClaudeAI_User</roles>
   <commonModules>CommonModule.CommonClaudeAI</commonModules>
   <constants>Constant.API_Key</constants>
   <constants>Constant.Max_Tokens</constants>

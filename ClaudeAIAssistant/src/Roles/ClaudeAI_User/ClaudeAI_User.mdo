@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Role xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="49323f00-6cb5-4eb0-91f7-ff123a4fb803">
+  <name>ClaudeAI_User</name>
+  <synonym>
+    <key>en</key>
+    <value>Claude AI user</value>
+  </synonym>
+</mdclass:Role>

@@ -18,4 +18,5 @@
   <content>CommonPicture.DataImport</content>
   <content>CommonPicture.UserWithoutPhoto</content>
   <content>InformationRegister.UsageStatistics</content>
+  <content>Role.ClaudeAI_Administrator</content>
 </mdclass:Subsystem>
