@@ -16,4 +16,5 @@
   <content>CommonPicture.ClaudeAILogo</content>
   <content>DataProcessor.ClaudeAIAssistant</content>
   <content>CommonPicture.DataImport</content>
+  <content>CommonPicture.UserWithoutPhoto</content>
 </mdclass:Subsystem>

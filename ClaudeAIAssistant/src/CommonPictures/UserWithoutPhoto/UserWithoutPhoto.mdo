@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="f0bbc431-9c8c-47b8-943a-a5594fa0d3a5">
+  <name>UserWithoutPhoto</name>
+  <synonym>
+    <key>en</key>
+    <value>User without photo</value>
+  </synonym>
+</mdclass:CommonPicture>
