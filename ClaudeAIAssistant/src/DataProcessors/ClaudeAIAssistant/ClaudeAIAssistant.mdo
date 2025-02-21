@@ -7,7 +7,7 @@
   <name>ClaudeAIAssistant</name>
   <synonym>
     <key>en</key>
-    <value>Claude AIAssistant</value>
+    <value>Claude AI assistant</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.ClaudeAIAssistant.Form.Assistant</defaultForm>

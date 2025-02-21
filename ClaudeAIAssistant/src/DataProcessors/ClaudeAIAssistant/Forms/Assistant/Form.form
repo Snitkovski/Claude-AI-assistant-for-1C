@@ -367,10 +367,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Favorite</name>
+      <name>Predefined</name>
       <title>
         <key>en</key>
-        <value>Favorite</value>
+        <value>Predefined</value>
       </title>
       <id>6</id>
       <valueType>
@@ -472,6 +472,11 @@
     <picture xsi:type="core:PictureRef">
       <picture>CommonPicture.DataImport</picture>
     </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ImportToDB</name>
+      </handler>
+    </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>

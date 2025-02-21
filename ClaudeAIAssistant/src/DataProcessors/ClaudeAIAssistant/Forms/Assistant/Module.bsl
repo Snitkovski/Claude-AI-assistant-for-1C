@@ -22,12 +22,23 @@ Procedure Send(Command)
 		Return;
 	EndIf;
 	        
-	SendRequestAtServer();
+	SendAtServer();
+EndProcedure
+
+&AtClient
+Procedure ImportToDB(Command)
+	
 EndProcedure
 
 #EndRegion
 
 #Region Private
+
+&AtServer
+Procedure SendAtServer()
+	SendRequestAtServer();
+	UpdateChatMessages();
+EndProcedure
 
 &AtServer
 Procedure SendRequestAtServer()
@@ -90,8 +101,6 @@ Procedure SendRequestAtServer()
 		CommonClaudeAI.UpdateUsageStatistics(ResponseData);
 	EndIf;
 	
-	UpdateChatMessages();
-	
 	Object.QueryText = "";
 EndProcedure
 
@@ -104,6 +113,10 @@ Procedure UpdateChatMessages()
 							|</tr></tbody></table>";
 	
 	For Each Message In ChatData Do
+		If Message.Predefined Then
+			Continue;
+		EndIf;
+		
 		If Message.Role = "user" Then
 			PicData = PictureLib.UserWithoutPhoto.GetBinaryData();
 			PicData = Base64String(PicData);
