@@ -10,4 +10,20 @@ Function GetAIParameters() Export
 	Return AIParameters;
 EndFunction
 
+Procedure UpdateUsageStatistics(ResponseData) Export	Record = InformationRegisters.UsageStatistics.CreateRecordManager();
+	Record.Period = CurrentSessionDate();
+	Record.User = UserFullName();
+	Record.InputTokens = ResponseData.usage.output_tokens;
+	Record.OutputTokens = ResponseData.usage.input_tokens;
+	Try
+		Record.Write();
+	Except
+		Message = New UserMessage;
+		Message.Text = ErrorDescription();
+		Message.Message();
+	
+		WriteLogEvent("UpdateUsageStatistics", EventLogLevel.Error, , , ErrorDescription());	
+	EndTry;
+EndProcedure
+
 #EndRegion

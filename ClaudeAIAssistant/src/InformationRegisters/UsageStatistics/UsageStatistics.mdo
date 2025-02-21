@@ -18,6 +18,8 @@
   <editType>InDialog</editType>
   <defaultRecordForm>InformationRegister.UsageStatistics.Form.RecordForm</defaultRecordForm>
   <defaultListForm>InformationRegister.UsageStatistics.Form.ListForm</defaultListForm>
+  <informationRegisterPeriodicity>Second</informationRegisterPeriodicity>
+  <mainFilterOnPeriod>true</mainFilterOnPeriod>
   <dataLockControlMode>Managed</dataLockControlMode>
   <recordPresentation>
     <key>en</key>

@@ -86,17 +86,22 @@ Procedure SendRequestAtServer()
 		NewChatMessage.Message = ResponseData.error.message;
 	Else
 		NewChatMessage.Message = ResponseData.content[0].text;
+		
+		CommonClaudeAI.UpdateUsageStatistics(ResponseData);
 	EndIf;
 	
-	
 	UpdateChatMessages();
+	
+	Object.QueryText = "";
 EndProcedure
 
 &AtServer
 Procedure UpdateChatMessages()
 	ChatMessages = "<!DOCTYPE html> <html><body>";
-	ChatMessageTemplate = "<p style=""text-align: justify;""><img height = ""%1"" width = ""%2"" src=""data:image/jpg;base64,%3""/>
-							|<span style=""background-color: %4"">%5</span></p>";
+	ChatMessageTemplate = "<table><tbody><tr>
+							|<td align=""center""><img height = ""%1"" width = ""%2"" src=""data:image/jpg;base64,%3""/></td>
+							|<td align=""justify"" bgcolor = ""%4""><p>%5</p></td>
+							|</tr></tbody></table>";
 	
 	For Each Message In ChatData Do
 		If Message.Role = "user" Then
@@ -114,5 +119,5 @@ Procedure UpdateChatMessages()
 	
 	ChatMessages = ChatMessages + "</body></html>";
 EndProcedure
-
+	
 #EndRegion
