@@ -61,7 +61,7 @@ Procedure SendRequestAtServer()
 	
 	NewMessage = New Map;
 	NewMessage.Insert("role", "user");
-	NewMessage.Insert("content", Object.QueryText);
+	NewMessage.Insert("content", Object.QueryText + ". Your answer must be in html format");
 	Messages.Add(NewMessage);
 	
 	NewChatMessage = ChatData.Add();
