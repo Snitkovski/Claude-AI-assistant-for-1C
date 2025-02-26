@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="5d9c6e2c-e8cc-479f-a39d-ba36123b2b1c">
+  <name>CommonClaudeAIOverridable</name>
+  <synonym>
+    <key>en</key>
+    <value>Common claude AIOverridable</value>
+  </synonym>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>

@@ -51,6 +51,7 @@
   <roles>Role.ClaudeAI_Administrator</roles>
   <roles>Role.ClaudeAI_User</roles>
   <commonModules>CommonModule.CommonClaudeAI</commonModules>
+  <commonModules>CommonModule.CommonClaudeAIOverridable</commonModules>
   <constants>Constant.API_Key</constants>
   <constants>Constant.Max_Tokens</constants>
   <constants>Constant.Model</constants>

@@ -3,6 +3,8 @@
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	AIParameters = CommonClaudeAI.GetAIParameters();
+	
+	NeedToAddGeneralPrompt = True;
 EndProcedure
 
 #EndRegion
@@ -12,6 +14,8 @@ EndProcedure
 &AtClient
 Procedure Clear(Command)
 	ChatData.Clear();
+	
+	NeedToAddGeneralPrompt = True;
 	
 	UpdateChatMessages();
 EndProcedure
@@ -51,7 +55,20 @@ Procedure SendRequestAtServer()
 	Headers.Insert("content-type", "application/json"); 
 	Headers.Insert("x-api-key", AIParameters.API_Key);
 	
+	If NeedToAddGeneralPrompt Then
+		NeedToAddGeneralPrompt = False;		
+		GeneralPrompt = CommonClaudeAIOverridable.GetGeneralPrompt();
+		
+		If ValueIsFilled(GeneralPrompt) Then
+			NewChatMessage = ChatData.Add();
+			NewChatMessage.Role = "user";
+			NewChatMessage.Message = GeneralPrompt;
+			NewChatMessage.Predefined = True;
+		EndIf;
+	EndIf;
+	
 	Messages = New Array;
+	
 	For Each Message In ChatData Do
 		HistoryMessage = New Map;
 		HistoryMessage.Insert("role", Message.Role);
