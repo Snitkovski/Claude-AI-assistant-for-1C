@@ -29,11 +29,6 @@ Procedure Send(Command)
 	SendAtServer();
 EndProcedure
 
-&AtClient
-Procedure ImportToDB(Command)
-	
-EndProcedure
-
 #EndRegion
 
 #Region Private
