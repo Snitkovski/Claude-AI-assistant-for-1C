@@ -10,7 +10,7 @@ Function GetAIParameters() Export
 	Return AIParameters;
 EndFunction
 
-Procedure UpdateUsageStatistics(ResponseData) Export	Record = InformationRegisters.UsageStatistics.CreateRecordManager();
+Procedure UpdateUsageStatistics(ResponseData) Export	Record = InformationRegisters.ClaudeAI_UsageStatistics.CreateRecordManager();
 	Record.Period = CurrentSessionDate();
 	Record.User = UserFullName();
 	Record.InputTokens = ResponseData.usage.output_tokens;
