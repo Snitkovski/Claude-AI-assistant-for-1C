@@ -135,7 +135,7 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Object.QueryText</segments>
+        <segments>QueryText</segments>
       </dataPath>
       <extendedTooltip>
         <name>QueryTextExtendedTooltip</name>
@@ -401,6 +401,24 @@
     <id>11</id>
     <valueType>
       <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>QueryText</name>
+    <title>
+      <key>en</key>
+      <value>Query text</value>
+    </title>
+    <id>12</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
