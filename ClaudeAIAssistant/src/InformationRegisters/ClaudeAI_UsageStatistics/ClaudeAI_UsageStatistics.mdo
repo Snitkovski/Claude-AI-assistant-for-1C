@@ -12,7 +12,7 @@
   <name>ClaudeAI_UsageStatistics</name>
   <synonym>
     <key>en</key>
-    <value>Claude a i usage statistics</value>
+    <value>Claude AI usage statistics</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <editType>InDialog</editType>

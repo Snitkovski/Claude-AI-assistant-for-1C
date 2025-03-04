@@ -10,4 +10,13 @@
     <value>Claude AI usage statistics</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
+  <mainDataCompositionSchema>Report.ClaudeAI_UsageStatistics.Template.DCS</mainDataCompositionSchema>
+  <templates uuid="86692ab4-44d9-4c9d-94a9-0264ff64cb9e">
+    <name>DCS</name>
+    <synonym>
+      <key>en</key>
+      <value>DCS</value>
+    </synonym>
+    <templateType>DataCompositionSchema</templateType>
+  </templates>
 </mdclass:Report>
