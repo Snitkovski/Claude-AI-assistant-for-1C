@@ -17,6 +17,6 @@
   <content>DataProcessor.ClaudeAIAssistant</content>
   <content>CommonPicture.DataImport</content>
   <content>CommonPicture.UserWithoutPhoto</content>
-  <content>InformationRegister.UsageStatistics</content>
+  <content>InformationRegister.ClaudeAI_UsageStatistics</content>
   <content>Role.ClaudeAI_Administrator</content>
 </mdclass:Subsystem>

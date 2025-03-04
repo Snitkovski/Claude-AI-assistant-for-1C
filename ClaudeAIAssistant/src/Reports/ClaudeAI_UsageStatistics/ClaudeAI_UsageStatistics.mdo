@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Report xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="3f3b904c-77e0-46e2-9cf6-427c38355dda">
+  <producedTypes>
+    <objectType typeId="950f8de0-9a80-4526-a616-8ea9cbdd47b4" valueTypeId="cf53c039-9f3e-4491-8d79-936db0d35778"/>
+    <managerType typeId="cc4d923e-d6f8-4d92-b171-fc9a3bb8ef10" valueTypeId="d74b9a7f-623d-44e0-9c35-21f72eff8e76"/>
+  </producedTypes>
+  <name>ClaudeAI_UsageStatistics</name>
+  <synonym>
+    <key>en</key>
+    <value>Claude AI usage statistics</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+</mdclass:Report>
