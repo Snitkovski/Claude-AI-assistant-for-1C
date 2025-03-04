@@ -9,15 +9,15 @@
     <recordType typeId="23f49c6b-7218-47db-9906-8c1d5ec80f6e" valueTypeId="87397e8e-c3f0-4513-8fb1-7d015c50dd45"/>
     <recordManagerType typeId="49e9bc3b-bea0-49a8-b600-c6a1d042963d" valueTypeId="4fa0d358-1698-469f-a80c-a644733f72d3"/>
   </producedTypes>
-  <name>UsageStatistics</name>
+  <name>ClaudeAI_UsageStatistics</name>
   <synonym>
     <key>en</key>
-    <value>Usage statistics</value>
+    <value>Claude a i usage statistics</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <editType>InDialog</editType>
-  <defaultRecordForm>InformationRegister.UsageStatistics.Form.RecordForm</defaultRecordForm>
-  <defaultListForm>InformationRegister.UsageStatistics.Form.ListForm</defaultListForm>
+  <defaultRecordForm>InformationRegister.ClaudeAI_UsageStatistics.Form.RecordForm</defaultRecordForm>
+  <defaultListForm>InformationRegister.ClaudeAI_UsageStatistics.Form.ListForm</defaultListForm>
   <informationRegisterPeriodicity>Second</informationRegisterPeriodicity>
   <mainFilterOnPeriod>true</mainFilterOnPeriod>
   <dataLockControlMode>Managed</dataLockControlMode>

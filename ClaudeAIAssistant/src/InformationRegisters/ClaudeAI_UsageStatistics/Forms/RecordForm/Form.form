@@ -144,7 +144,7 @@
     <name>Record</name>
     <id>1</id>
     <valueType>
-      <types>InformationRegisterRecordManager.UsageStatistics</types>
+      <types>InformationRegisterRecordManager.ClaudeAI_UsageStatistics</types>
     </valueType>
     <view>
       <common>true</common>

@@ -152,7 +152,7 @@
 		</right>
 	</object>
 	<object>
-		<name>InformationRegister.UsageStatistics</name>
+		<name>InformationRegister.ClaudeAI_UsageStatistics</name>
 		<right>
 			<name>Read</name>
 			<value>false</value>
