@@ -16,7 +16,21 @@ EndProcedure
 
 &AtClient
 Procedure Send(Command)
-	CommonClaudeAIClient.Send(ThisObject);
+	If Not ValueIsFilled(QueryText) Then
+		Return;
+	EndIf;
+	
+	SendAtServer();
+EndProcedure
+
+#EndRegion
+
+#Region Private
+
+&AtServer
+Procedure SendAtServer()
+	CommonClaudeAI.SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, QueryText);
+	CommonClaudeAI.UpdateChatMessages(ChatMessages, ChatData);
 EndProcedure
 
 #EndRegion

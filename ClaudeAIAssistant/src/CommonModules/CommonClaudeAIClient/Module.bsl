@@ -8,12 +8,4 @@ Procedure Clear(Form) Export
 	Form.ChatMessages = "";
 EndProcedure
 
-Procedure Send(Form) Export
-	If Not ValueIsFilled(Form.QueryText) Then
-		Return;
-	EndIf;
-	        
-	CommonClaudeAIServerCall.Send(Form.AIParameters, Form.NeedToAddGeneralPrompt, Form.ChatData, Form.ChatMessages, Form.QueryText);
-EndProcedure
-
 #EndRegion

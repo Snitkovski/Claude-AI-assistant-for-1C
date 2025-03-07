@@ -54,7 +54,6 @@
   <commonModules>CommonModule.CommonClaudeAICached</commonModules>
   <commonModules>CommonModule.CommonClaudeAIClient</commonModules>
   <commonModules>CommonModule.CommonClaudeAIOverridable</commonModules>
-  <commonModules>CommonModule.CommonClaudeAIServerCall</commonModules>
   <constants>Constant.API_Key</constants>
   <constants>Constant.Max_Tokens</constants>
   <constants>Constant.Model</constants>
