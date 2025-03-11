@@ -1,7 +1,112 @@
 #Region Public
 
 Procedure OnCreateAtServer(Form) Export
-	Form.AIParameters = CommonClaudeAICached.GetAIParameters();
+	NewFormAttibutes = New Array;
+	
+	AIParameters = New FormAttribute("AIParameters", New TypeDescription("Undefined"));
+	NewFormAttibutes.Add(AIParameters);
+	
+	ChatMessages = New FormAttribute("ChatMessages", New TypeDescription("String"));
+	NewFormAttibutes.Add(ChatMessages);
+	
+	NeedToAddGeneralPrompt = New FormAttribute("NeedToAddGeneralPrompt", New TypeDescription("Boolean"));
+	NewFormAttibutes.Add(NeedToAddGeneralPrompt);
+	
+	QueryText = New FormAttribute("QueryText", New TypeDescription("String"));
+	NewFormAttibutes.Add(QueryText);
+	
+	ChatData = New FormAttribute("ChatData", New TypeDescription("ValueTable"));
+	NewFormAttibutes.Add(ChatData);
+	
+	ChatDataRole = New FormAttribute("ChatDataRole", New TypeDescription("String"), "ChatData", "Role");
+	NewFormAttibutes.Add(ChatDataRole);
+	
+	ChatDataMessage = New FormAttribute("ChatDataMessage", New TypeDescription("String"), "ChatData", "Message");
+	NewFormAttibutes.Add(ChatDataMessage);
+	
+	ChatDataPredefined = New FormAttribute("ChatDataPredefined", New TypeDescription("String"), "ChatData", "Predefined");
+	NewFormAttibutes.Add(ChatDataPredefined);
+	
+	Form.ChangeAttributes(NewFormAttibutes);
+		
+	If Form.Items.Find("MainGroup") = Undefined Then
+		MainGroup = Form.Items.Add("MainGroup", Type("FormGroup"));
+		MainGroup.Type = FormGroupType.UsualGroup;
+		MainGroup.ShowTitle = False;
+		MainGroup.Representation = UsualGroupRepresentation.None;
+		MainGroup.Group = ChildFormItemsGroup.Horizontal;
+		
+		If Form.Items.Find("MainObjectGroup") = Undefined Then
+			MainObjectGroup = Form.Items.Add("MainObjectGroup", Type("FormGroup"), MainGroup);
+			MainObjectGroup.Type = FormGroupType.UsualGroup;
+			MainObjectGroup.ShowTitle = False;
+			MainObjectGroup.Representation = UsualGroupRepresentation.None;
+			MainObjectGroup.Group = Form.Group;
+
+			For Each Item In Form.Items Do
+				If Item.Parent = Form Then
+					Form.Items.Move(Item, MainObjectGroup);
+				EndIf;
+			EndDo;
+		EndIf;
+	EndIf;
+	
+	AIAssistantCommand = Form.Commands.Add("AIAssistant");
+	AIAssistantCommand.Action = "AttachableCommand_AIAssistant";
+	AIAssistantCommand.Title = NStr("en = 'AI assistant'");
+	AIAssistantCommand.Representation = ButtonRepresentation.PictureAndText;
+	If Form.Items.Find("GroupGlobalCommands") <> Undefined Then
+		AIAssistantButton = Form.Items.Add("FormAIAssistant", Type("FormButton"), Form.Items.GroupGlobalCommands);
+	Else
+		AIAssistantButton = Form.Items.Add("FormAIAssistant", Type("FormButton"), Form.Items.AIAssistant);
+	EndIf;
+	AIAssistantButton.CommandName = "AIAssistant";
+	AIAssistantButton.Picture = PictureLib.ClaudeAILogo;
+	
+	AIAssistantGroup = Form.Items.Add("AIAssistantGroup", Type("FormGroup"), MainGroup);
+	AIAssistantGroup.Type = FormGroupType.UsualGroup;
+	AIAssistantGroup.ShowTitle = False;
+	AIAssistantGroup.Representation = UsualGroupRepresentation.None;
+	AIAssistantGroup.Group = ChildFormItemsGroup.Vertical;
+	AIAssistantGroup.Visible = False;
+	AIAssistantGroup.Width = 15;
+	
+	AIAssistantHeaderGroup = Form.Items.Add("AIAssistantHeaderGroup", Type("FormGroup"), AIAssistantGroup);
+	AIAssistantHeaderGroup.Type = FormGroupType.UsualGroup;
+	AIAssistantHeaderGroup.ShowTitle = False;
+	AIAssistantHeaderGroup.Representation = UsualGroupRepresentation.None;
+	AIAssistantHeaderGroup.Group = ChildFormItemsGroup.Horizontal;
+	
+	AIAssistantHeaderPicture = Form.Items.Add("AIAssistantHeaderPicture", Type("FormDecoration"), AIAssistantHeaderGroup);
+	AIAssistantHeaderPicture.Type = FormDecorationType.Picture;
+    AIAssistantHeaderPicture.Picture = PictureLib.ClaudeAILogo;
+    AIAssistantHeaderPicture.Width = 2;
+    AIAssistantHeaderPicture.Height = 1;
+    AIAssistantHeaderPicture.HorizontalStretch = False;
+    AIAssistantHeaderPicture.VerticalStretch = False;
+    AIAssistantHeaderPicture.AutoMaxWidth = False;
+    AIAssistantHeaderPicture.AutoMaxHeight = False;
+    AIAssistantHeaderPicture.PictureSize = PictureSize.Proportionally;
+    
+    AIAssistantHeaderLabel = Form.Items.Add("AIAssistantHeaderLabel", Type("FormDecoration"), AIAssistantHeaderGroup);
+	AIAssistantHeaderLabel.Type = FormDecorationType.Label;
+	AIAssistantHeaderLabel.Title = NStr("en = 'How can AI assistant helps you today?'");
+	AIAssistantHeaderLabel.Font = StyleFonts.LargeTextFont;
+	
+	AIAssistantCommandBar = Form.Items.Add("AIAssistantCommandBar", Type("FormGroup"), AIAssistantGroup);
+	AIAssistantCommandBar.Type = FormGroupType.CommandBar;
+	
+	AIAssistantCommandClear = Form.Commands.Add("AIAssistantCommandClear");
+	AIAssistantCommandClear.Action = "AttachableCommand_AIAssistantClear";
+	AIAssistantCommandClear.Title = NStr("en = 'Clear'");
+	AIAssistantCommandClear.Representation = ButtonRepresentation.PictureAndText;
+	
+	AIAssistantButtonClear = Form.Items.Add("AIAssistantClear", Type("FormButton"), Form.Items.AIAssistantCommandBar);
+	AIAssistantButtonClear.CommandName = "AIAssistantCommandClear";
+	AIAssistantButtonClear.Picture = PictureLib.InputFieldClear;
+	AIAssistantButtonClear.Enabled = True;
+	
+	//Form.AIParameters = CommonClaudeAICached.GetAIParameters();
 	
 	Form.NeedToAddGeneralPrompt = True;
 EndProcedure
