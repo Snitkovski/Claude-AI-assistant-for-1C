@@ -106,7 +106,7 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantButtonClear.Picture = PictureLib.InputFieldClear;
 	AIAssistantButtonClear.Enabled = True;
 	
-	//Form.AIParameters = CommonClaudeAICached.GetAIParameters();
+	Form.AIParameters = CommonClaudeAICached.GetAIParameters();
 	
 	Form.NeedToAddGeneralPrompt = True;
 EndProcedure
