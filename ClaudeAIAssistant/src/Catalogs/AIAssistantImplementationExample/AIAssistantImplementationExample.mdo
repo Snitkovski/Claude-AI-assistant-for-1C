@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Catalog xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="65e126e1-4501-4b16-ac84-9e8f04329e2e">
+  <producedTypes>
+    <objectType typeId="76bac769-7991-4657-a83c-61b8ac3b3464" valueTypeId="aa14487f-5480-4b81-9911-a832a860c962"/>
+    <refType typeId="b0d06412-f995-466b-970a-19760e21377f" valueTypeId="9e50eb1a-c788-4143-b466-0757d7da9013"/>
+    <selectionType typeId="c52b762d-40e1-4e38-92ee-8c80c131e7b5" valueTypeId="f67ab1aa-c0b7-4987-b7ce-d322798ad1a3"/>
+    <listType typeId="40ee6961-084b-47e7-8e56-02fa40ef8f67" valueTypeId="596cfd48-2f0f-42f4-a7da-0334deca30ab"/>
+    <managerType typeId="f6bb0481-ad62-4837-8c4f-79ed4cdc6754" valueTypeId="84421c8b-d9f7-4f60-9843-a9f18784e860"/>
+  </producedTypes>
+  <name>AIAssistantImplementationExample</name>
+  <synonym>
+    <key>en</key>
+    <value>AI Assistant implementation example</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <inputByString>Catalog.AIAssistantImplementationExample.StandardAttribute.Code</inputByString>
+  <inputByString>Catalog.AIAssistantImplementationExample.StandardAttribute.Description</inputByString>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>Use</createOnInput>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <fullTextSearch>Use</fullTextSearch>
+  <levelCount>2</levelCount>
+  <foldersOnTop>true</foldersOnTop>
+  <codeLength>9</codeLength>
+  <descriptionLength>25</descriptionLength>
+  <codeType>String</codeType>
+  <codeAllowedLength>Variable</codeAllowedLength>
+  <checkUnique>true</checkUnique>
+  <autonumbering>true</autonumbering>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+  <defaultListForm>Catalog.AIAssistantImplementationExample.Form.ListForm</defaultListForm>
+  <forms uuid="4e37a1fb-b3f0-4489-8f41-963333a8002c">
+    <name>ListForm</name>
+    <synonym>
+      <key>en</key>
+      <value>List form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:Catalog>

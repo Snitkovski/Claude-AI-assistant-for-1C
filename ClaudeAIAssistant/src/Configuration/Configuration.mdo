@@ -57,6 +57,7 @@
   <constants>Constant.API_Key</constants>
   <constants>Constant.Max_Tokens</constants>
   <constants>Constant.Model</constants>
+  <catalogs>Catalog.AIAssistantImplementationExample</catalogs>
   <reports>Report.ClaudeAI_UsageStatistics</reports>
   <dataProcessors>DataProcessor.ClaudeAIAssistant</dataProcessors>
   <informationRegisters>InformationRegister.ClaudeAI_UsageStatistics</informationRegisters>
