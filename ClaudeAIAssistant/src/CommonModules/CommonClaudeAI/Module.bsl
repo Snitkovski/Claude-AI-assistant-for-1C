@@ -106,6 +106,26 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantButtonClear.Picture = PictureLib.InputFieldClear;
 	AIAssistantButtonClear.Enabled = True;
 	
+	AIAssistantChatMessages = Form.Items.Add("AIAssistantChatMessages", Type("FormField"), AIAssistantGroup);
+	AIAssistantChatMessages.Type = FormFieldType.HTMLDocumentField;
+	AIAssistantChatMessages.DataPath = "ChatMessages";
+	AIAssistantChatMessages.ReadOnly = True;
+	AIAssistantChatMessages.TitleLocation = FormItemTitleLocation.None;
+	
+	AIAssistantCurrentMessageGroup = Form.Items.Add("AIAssistantCurrentMessageGroup", Type("FormGroup"), AIAssistantGroup);
+	AIAssistantCurrentMessageGroup.Type = FormGroupType.UsualGroup;
+	AIAssistantCurrentMessageGroup.ShowTitle = False;
+	AIAssistantCurrentMessageGroup.Representation = UsualGroupRepresentation.None;
+	AIAssistantCurrentMessageGroup.Group = ChildFormItemsGroup.Horizontal;
+	
+	AIAssistantCurrentMessage = Form.Items.Add("AIAssistantCurrentMessage", Type("FormField"), AIAssistantCurrentMessageGroup);
+	AIAssistantCurrentMessage.Type = FormFieldType.InputField;
+	AIAssistantCurrentMessage.DataPath = "QueryText";
+	AIAssistantCurrentMessage.ReadOnly = False;
+	AIAssistantCurrentMessage.TitleLocation = FormItemTitleLocation.Top;
+	AIAssistantCurrentMessage.Title = NStr("en = 'Your message'");
+	AIAssistantCurrentMessage.MultiLine = True;
+	
 	Form.AIParameters = CommonClaudeAICached.GetAIParameters();
 	
 	Form.NeedToAddGeneralPrompt = True;
