@@ -18,13 +18,13 @@ Procedure OnCreateAtServer(Form) Export
 	ChatData = New FormAttribute("ChatData", New TypeDescription("ValueTable"));
 	NewFormAttibutes.Add(ChatData);
 	
-	ChatDataRole = New FormAttribute("ChatDataRole", New TypeDescription("String"), "ChatData", "Role");
+	ChatDataRole = New FormAttribute("Role", New TypeDescription("String"), "ChatData", "Role");
 	NewFormAttibutes.Add(ChatDataRole);
 	
-	ChatDataMessage = New FormAttribute("ChatDataMessage", New TypeDescription("String"), "ChatData", "Message");
+	ChatDataMessage = New FormAttribute("Message", New TypeDescription("String"), "ChatData", "Message");
 	NewFormAttibutes.Add(ChatDataMessage);
 	
-	ChatDataPredefined = New FormAttribute("ChatDataPredefined", New TypeDescription("String"), "ChatData", "Predefined");
+	ChatDataPredefined = New FormAttribute("Predefined", New TypeDescription("Boolean"), "ChatData", "Predefined");
 	NewFormAttibutes.Add(ChatDataPredefined);
 	
 	Form.ChangeAttributes(NewFormAttibutes);
@@ -141,7 +141,8 @@ Procedure OnCreateAtServer(Form) Export
 	Form.NeedToAddGeneralPrompt = True;
 EndProcedure
 
-Procedure UpdateUsageStatistics(ResponseData) Export	Record = InformationRegisters.ClaudeAI_UsageStatistics.CreateRecordManager();
+Procedure UpdateUsageStatistics(ResponseData) Export
+	Record = InformationRegisters.ClaudeAI_UsageStatistics.CreateRecordManager();
 	Record.Period = CurrentSessionDate();
 	Record.User = UserFullName();
 	Record.InputTokens = ResponseData.usage.output_tokens;
@@ -157,7 +158,7 @@ Procedure UpdateUsageStatistics(ResponseData) Export	Record = InformationRegist
 	EndTry;
 EndProcedure
 
-Procedure SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, QueryText) Export
+Procedure SendRequestAtServer(Form) Export
 	SSL = New OpenSSLSecureConnection(Undefined, New OSCertificationAuthorityCertificates());
 	Connection = New HTTPConnection("api.anthropic.com", 443,,,,, SSL);
 	
@@ -165,14 +166,14 @@ Procedure SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, Qu
 	Headers = New Map;
 	Headers.Insert("anthropic-version", "2023-06-01");
 	Headers.Insert("content-type", "application/json"); 
-	Headers.Insert("x-api-key", AIParameters.API_Key);
+	Headers.Insert("x-api-key", Form.AIParameters.API_Key);
 	
-	If NeedToAddGeneralPrompt Then
-		NeedToAddGeneralPrompt = False;		
+	If Form.NeedToAddGeneralPrompt Then
+		Form.NeedToAddGeneralPrompt = False;		
 		GeneralPrompt = CommonClaudeAIOverridable.GetGeneralPrompt();
 		
 		If ValueIsFilled(GeneralPrompt) Then
-			NewChatMessage = ChatData.Add();
+			NewChatMessage = Form.ChatData.Add();
 			NewChatMessage.Role = "user";
 			NewChatMessage.Message = GeneralPrompt;
 			NewChatMessage.Predefined = True;
@@ -181,7 +182,7 @@ Procedure SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, Qu
 	
 	Messages = New Array;
 	
-	For Each Message In ChatData Do
+	For Each Message In Form.ChatData Do
 		HistoryMessage = New Map;
 		HistoryMessage.Insert("role", Message.Role);
 		HistoryMessage.Insert("content", Message.Message);
@@ -190,16 +191,16 @@ Procedure SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, Qu
 	
 	NewMessage = New Map;
 	NewMessage.Insert("role", "user");
-	NewMessage.Insert("content", QueryText + ". Your answer must be in html format");
+	NewMessage.Insert("content", Form.QueryText + ". Your answer must be in html format");
 	Messages.Add(NewMessage);
 	
-	NewChatMessage = ChatData.Add();
+	NewChatMessage = Form.ChatData.Add();
 	NewChatMessage.Role = "user";
-	NewChatMessage.Message = QueryText;
+	NewChatMessage.Message = Form.QueryText;
 	
 	Data = New Structure;
-	Data.Insert("model", AIParameters.Model);
-	Data.Insert("max_tokens", AIParameters.Max_Tokens); 
+	Data.Insert("model", Form.AIParameters.Model);
+	Data.Insert("max_tokens", Form.AIParameters.Max_Tokens); 
 	Data.Insert("messages", Messages); 
 	
 	JSONWriter = New JSONWriter;            
@@ -219,7 +220,7 @@ Procedure SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, Qu
 	ResponseData = ReadJSON(JSONReader);
 	JSONReader.Close();
 	
-	NewChatMessage = ChatData.Add();
+	NewChatMessage = Form.ChatData.Add();
 	NewChatMessage.Role = "assistant";
 	
 	If ResponseData.Property("error") Then
@@ -230,17 +231,17 @@ Procedure SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, Qu
 		UpdateUsageStatistics(ResponseData);
 	EndIf;
 	
-	QueryText = "";
+	Form.QueryText = "";
 EndProcedure
 
-Procedure UpdateChatMessages(ChatMessages, ChatData) Export
-	ChatMessages = "<!DOCTYPE html> <html><body>";
+Procedure UpdateChatMessages(Form) Export
+	Form.ChatMessages = "<!DOCTYPE html> <html><body>";
 	ChatMessageTemplate = "<table><tbody><tr>
 							|<td align=""center""><img height = ""%1"" width = ""%2"" src=""data:image/jpg;base64,%3""/></td>
 							|<td align=""justify"" bgcolor = ""%4""><p>%5</p></td>
 							|</tr></tbody></table>";
 	
-	For Each Message In ChatData Do
+	For Each Message In Form.ChatData Do
 		If Message.Predefined Then
 			Continue;
 		EndIf;
@@ -255,10 +256,10 @@ Procedure UpdateChatMessages(ChatMessages, ChatData) Export
 			MessageText = StrTemplate(ChatMessageTemplate, "32", "32", PicData, "#ffcc99", Message.Message);
 		EndIf;
 		
-		ChatMessages = ChatMessages + MessageText;
+		Form.ChatMessages = Form.ChatMessages + MessageText;
 	EndDo;
 	
-	ChatMessages = ChatMessages + "</body></html>";
+	Form.ChatMessages = Form.ChatMessages + "</body></html>";
 EndProcedure
 
 #EndRegion

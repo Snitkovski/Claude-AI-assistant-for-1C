@@ -29,8 +29,8 @@ EndProcedure
 
 &AtServer
 Procedure SendAtServer()
-	CommonClaudeAI.SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, QueryText);
-	CommonClaudeAI.UpdateChatMessages(ChatMessages, ChatData);
+	CommonClaudeAI.SendRequestAtServer(ThisObject);
+	CommonClaudeAI.UpdateChatMessages(ThisObject);
 EndProcedure
 
 #EndRegion

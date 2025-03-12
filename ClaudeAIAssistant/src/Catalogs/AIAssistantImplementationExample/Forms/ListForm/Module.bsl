@@ -33,10 +33,8 @@ EndProcedure
 
 &AtServer
 Procedure AttachableCommand_AIAssistantCommandSendRequestAtServer()
-	//@skip-check undefined-variable
-	CommonClaudeAI.SendRequestAtServer(AIParameters, NeedToAddGeneralPrompt, ChatData, QueryText);
-	//@skip-check undefined-variable
-	CommonClaudeAI.UpdateChatMessages(ChatMessages, ChatData);
+	CommonClaudeAI.SendRequestAtServer(ThisObject);
+	CommonClaudeAI.UpdateChatMessages(ThisObject);
 EndProcedure
 
 #EndRegion
