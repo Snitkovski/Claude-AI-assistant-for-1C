@@ -126,6 +126,16 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantCurrentMessage.Title = NStr("en = 'Your message'");
 	AIAssistantCurrentMessage.MultiLine = True;
 	
+	AIAssistantCommandSendRequest = Form.Commands.Add("AIAssistantCommandSendRequest");
+	AIAssistantCommandSendRequest.Action = "AttachableCommand_AIAssistantCommandSendRequest";
+	AIAssistantCommandSendRequest.Title = NStr("en = 'Send'");
+	AIAssistantCommandSendRequest.Representation = ButtonRepresentation.PictureAndText;
+
+	AIAssistantButtonSendRequest = Form.Items.Add("AIAssistantButtonSendRequest", Type("FormButton"), Form.Items.AIAssistantCurrentMessageGroup);
+	AIAssistantButtonSendRequest.CommandName = "AIAssistantCommandSendRequest";
+	AIAssistantButtonSendRequest.Picture = PictureLib.SendMessage;
+	AIAssistantButtonSendRequest.Enabled = True;
+	
 	Form.AIParameters = CommonClaudeAICached.GetAIParameters();
 	
 	Form.NeedToAddGeneralPrompt = True;
