@@ -10,7 +10,7 @@ Procedure Clear(Form) Export
 	
 	Form.NeedToAddGeneralPrompt = True;
 	
-	Form.ChatMessages = "";
+	Form.ChatMessages = "<!DOCTYPE html><html><body></body></html>";
 EndProcedure
 
 #EndRegion

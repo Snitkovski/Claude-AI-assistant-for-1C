@@ -2,7 +2,8 @@
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	CommonClaudeAI.OnCreateAtServer(ThisObject);
+	AIParameters = CommonClaudeAICached.GetAIParameters();
+	NeedToAddGeneralPrompt = True;
 EndProcedure
 
 #EndRegion
