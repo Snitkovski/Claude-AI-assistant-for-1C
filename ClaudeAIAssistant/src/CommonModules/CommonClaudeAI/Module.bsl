@@ -190,6 +190,29 @@ Procedure SendRequestAtServer(Form) Export
 		Messages.Add(HistoryMessage);
 	EndDo;
 	
+	UserAdditionalPrompts = CommonClaudeAICached.GetUserAdditionalPrompts(UserFullName());
+	While UserAdditionalPrompts.Next() Do
+		Filter = New Structure;
+		Filter.Insert("Role", "user");
+		Filter.Insert("Message", UserAdditionalPrompts.Prompt);
+		Filter.Insert("Predefined", True);
+		
+		Rows = Form.ChatData.FindRows(Filter);
+		If Rows.Count() > 0 Then
+			Form.ChatData.Delete(Rows[0]);
+		EndIf;
+		
+		NewChatMessage = Form.ChatData.Add();
+		NewChatMessage.Role = "user";
+		NewChatMessage.Message = UserAdditionalPrompts.Prompt;
+		NewChatMessage.Predefined = True;
+		
+		HistoryMessage = New Map;
+		HistoryMessage.Insert("role", NewChatMessage.Role);
+		HistoryMessage.Insert("content", NewChatMessage.Message);
+		Messages.Add(HistoryMessage);
+	EndDo;
+	
 	NewMessage = New Map;
 	NewMessage.Insert("role", "user");
 	NewMessage.Insert("content", Form.QueryText + ". Your answer must be in html format");
