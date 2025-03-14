@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="4aafed90-eae1-42df-bf4a-0c7c319849dc">
+  <producedTypes>
+    <selectionType typeId="0b213f7d-0f11-4025-897c-82e35b5da327" valueTypeId="4e10f4ed-76c9-4c4f-ad92-0a6c4ff7738f"/>
+    <listType typeId="bd0a30e9-3481-465d-86b7-e6e5785d016a" valueTypeId="ea2d06b3-12af-4ad7-96d0-4e8c5669004d"/>
+    <managerType typeId="17259bf2-e468-487c-8ae9-32453424f8d6" valueTypeId="4240d199-34a5-4857-ba13-548fbdb28819"/>
+    <recordSetType typeId="0d1a6232-a27c-46bf-862a-e662ccb7cf69" valueTypeId="442abe71-690c-41d7-9731-9750d5951fa3"/>
+    <recordKeyType typeId="a71448ee-8edc-4550-b27a-c7ac66d77e85" valueTypeId="45b5c069-8825-44cf-91b9-d9265de9e326"/>
+    <recordType typeId="4e59cfbe-ea0e-47c8-a0f8-ac6cea70b698" valueTypeId="89456a05-8a38-4cc8-9452-4ec630d4a9f9"/>
+    <recordManagerType typeId="1680d9d8-54d7-4f3b-9a1a-c9cbfe527f1c" valueTypeId="7463645c-7b46-4666-9c89-25df7958ff2f"/>
+  </producedTypes>
+  <name>AIAssistantChatsHistory</name>
+  <synonym>
+    <key>en</key>
+    <value>AI assistant chats history</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <defaultRecordForm>InformationRegister.AIAssistantChatsHistory.Form.RecordForm</defaultRecordForm>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <recordPresentation>
+    <key>en</key>
+    <value>AI assistant chat history</value>
+  </recordPresentation>
+  <listPresentation>
+    <key>en</key>
+    <value>AI assistant chats history</value>
+  </listPresentation>
+  <resources uuid="322b3e1d-f988-457c-aa4b-99f7e945b6ea">
+    <name>ChatHistory</name>
+    <synonym>
+      <key>en</key>
+      <value>Chat history</value>
+    </synonym>
+    <type>
+      <types>ValueStorage</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
+  <dimensions uuid="35be5bec-e5b0-4edb-8818-7dd4a83e5120">
+    <name>User</name>
+    <synonym>
+      <key>en</key>
+      <value>User</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <dimensions uuid="a6f667b0-2e64-4813-b836-6a17025ebc84">
+    <name>ID</name>
+    <synonym>
+      <key>en</key>
+      <value>ID</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>255</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <forms uuid="56a2cd9e-2282-4d7a-a69f-b61e8336aa37">
+    <name>RecordForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Record form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:InformationRegister>

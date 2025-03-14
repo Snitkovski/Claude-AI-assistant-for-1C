@@ -22,4 +22,5 @@
   <content>Report.ClaudeAI_UsageStatistics</content>
   <content>Catalog.AIAdditionalPrompts</content>
   <content>InformationRegister.UsersAdditionalPrompts</content>
+  <content>InformationRegister.AIAssistantChatsHistory</content>
 </mdclass:Subsystem>
