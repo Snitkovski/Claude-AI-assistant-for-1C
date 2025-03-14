@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="2154145b-3c34-40fa-8444-467eb565120c">
+  <producedTypes>
+    <selectionType typeId="a8f5cf95-4dd6-44aa-b3c9-911fb286dafa" valueTypeId="e2bac05f-ff15-4d8c-a811-fd5497e58926"/>
+    <listType typeId="fa3a9199-7e56-4e93-836d-57e9aba0d5b7" valueTypeId="dbf3f137-2c73-4959-b2da-f96546f72a41"/>
+    <managerType typeId="3b588222-d62c-4b5e-a03b-b7f365bd59f0" valueTypeId="11a8b37c-ad84-4bff-a1a3-84fc45e4678b"/>
+    <recordSetType typeId="28a1b170-12a3-461a-8c39-961a7f307908" valueTypeId="b75f1e3e-a303-4294-9c26-5a08a166d01d"/>
+    <recordKeyType typeId="9c5e6538-7a1d-4b05-a711-06dc05385e3f" valueTypeId="7bb0d628-0e8d-4681-9bcc-fb0cdff9979d"/>
+    <recordType typeId="b3b1dd47-4181-4834-812a-3f0e406c31eb" valueTypeId="40fce74b-3441-416b-ab2f-9deaed245a97"/>
+    <recordManagerType typeId="451b45cd-1663-4698-b98b-9735790d8785" valueTypeId="66a7f808-f2a8-42b2-b3f7-d12f7695dae7"/>
+  </producedTypes>
+  <name>UsersAdditionalPrompts</name>
+  <synonym>
+    <key>en</key>
+    <value>Users additional prompts</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <recordPresentation>
+    <key>en</key>
+    <value>AI additional prompt</value>
+  </recordPresentation>
+  <listPresentation>
+    <key>en</key>
+    <value>AI additional prompts</value>
+  </listPresentation>
+  <resources uuid="0803749e-abe9-48f9-b2e7-f8495f048b7f">
+    <name>Prompt</name>
+    <synonym>
+      <key>en</key>
+      <value>Prompt</value>
+    </synonym>
+    <type>
+      <types>CatalogRef.AIAdditionalPrompts</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillChecking>ShowError</fillChecking>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
+  <dimensions uuid="1482502d-5db3-49e2-a6c2-bdad82daddbf">
+    <name>User</name>
+    <synonym>
+      <key>en</key>
+      <value>User</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>100</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+</mdclass:InformationRegister>

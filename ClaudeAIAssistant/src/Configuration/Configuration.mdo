@@ -62,4 +62,5 @@
   <reports>Report.ClaudeAI_UsageStatistics</reports>
   <dataProcessors>DataProcessor.ClaudeAIAssistant</dataProcessors>
   <informationRegisters>InformationRegister.ClaudeAI_UsageStatistics</informationRegisters>
+  <informationRegisters>InformationRegister.UsersAdditionalPrompts</informationRegisters>
 </mdclass:Configuration>

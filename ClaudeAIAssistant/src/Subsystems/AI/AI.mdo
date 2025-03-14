@@ -21,4 +21,5 @@
   <content>Role.ClaudeAI_Administrator</content>
   <content>Report.ClaudeAI_UsageStatistics</content>
   <content>Catalog.AIAdditionalPrompts</content>
+  <content>InformationRegister.UsersAdditionalPrompts</content>
 </mdclass:Subsystem>
