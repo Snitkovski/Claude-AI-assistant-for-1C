@@ -4,7 +4,6 @@
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	AIParameters = CommonClaudeAICached.GetAIParameters();
 	NeedToAddGeneralPrompt = True;
-	Items.Navigation.Enabled = False;
 EndProcedure
 
 #EndRegion
@@ -13,10 +12,7 @@ EndProcedure
 
 &AtClient
 Procedure ChatMessagesOnClick(Item, EventData, StandardProcessing)
-	StandardProcessing = False;
-	If EventData.Href <> Undefined Then
-		RunAppAsync(EventData.Href);
-	EndIf;
+	CommonClaudeAIClient.ChatMessagesOnClick(Item, EventData, StandardProcessing);
 EndProcedure
 
 #EndRegion

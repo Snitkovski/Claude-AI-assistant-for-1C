@@ -13,4 +13,11 @@ Procedure Clear(Form) Export
 	Form.ChatMessages = "<!DOCTYPE html><html><body></body></html>";
 EndProcedure
 
+Procedure ChatMessagesOnClick(Item, EventData, StandardProcessing) Export
+	StandardProcessing = False;
+	If EventData.Href <> Undefined Then
+		RunAppAsync(EventData.Href);
+	EndIf;
+EndProcedure
+
 #EndRegion

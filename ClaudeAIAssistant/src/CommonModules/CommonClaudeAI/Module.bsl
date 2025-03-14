@@ -111,6 +111,7 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantChatMessages.DataPath = "ChatMessages";
 	AIAssistantChatMessages.ReadOnly = True;
 	AIAssistantChatMessages.TitleLocation = FormItemTitleLocation.None;
+	AIAssistantChatMessages.SetAction("OnClick", "Attachable_ChatMessagesOnClick");
 	
 	AIAssistantCurrentMessageGroup = Form.Items.Add("AIAssistantCurrentMessageGroup", Type("FormGroup"), AIAssistantGroup);
 	AIAssistantCurrentMessageGroup.Type = FormGroupType.UsualGroup;

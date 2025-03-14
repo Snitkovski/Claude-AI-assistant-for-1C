@@ -37,6 +37,11 @@ Procedure AttachableCommand_AIAssistantCommandSendRequestAtServer()
 	CommonClaudeAI.UpdateChatMessages(ThisObject);
 EndProcedure
 
+&AtClient
+Procedure Attachable_ChatMessagesOnClick(Item, EventData, StandardProcessing)
+	CommonClaudeAIClient.ChatMessagesOnClick(Item, EventData, StandardProcessing);
+EndProcedure
+
 #EndRegion
 
 #EndRegion
