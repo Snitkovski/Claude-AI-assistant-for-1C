@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="75e4c822-23e2-4dac-8bae-8d85236c39e4">
+  <producedTypes>
+    <objectType typeId="4f07bc46-8c90-483f-a5d6-978c22138d8b" valueTypeId="68764e20-316d-44da-8182-b5eaf1a6d36f"/>
+    <refType typeId="2a13bd0a-7847-43ad-86b6-0730ca07bb8b" valueTypeId="92778791-1c38-439c-ac64-213baa18c77e"/>
+    <selectionType typeId="45ce7477-77fb-4699-8c3d-a4d2c922fc6b" valueTypeId="06a6a804-a7cd-48a4-8672-067aa54d7a56"/>
+    <listType typeId="1323a98d-5dc3-41b4-8df8-2dd0b5cf8410" valueTypeId="31e83079-2ec0-4596-a9f6-acd9d1c8c645"/>
+    <managerType typeId="d6a8c883-3ca1-4634-b4cc-300913912694" valueTypeId="52e76bc3-5f30-41c3-ad9d-3598d8eb769a"/>
+  </producedTypes>
+  <name>AIAdditionalPrompts</name>
+  <synonym>
+    <key>en</key>
+    <value>Additional prompts</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <inputByString>Catalog.AIAdditionalPrompts.StandardAttribute.Code</inputByString>
+  <inputByString>Catalog.AIAdditionalPrompts.StandardAttribute.Description</inputByString>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>Use</createOnInput>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>en</key>
+    <value>Additional prompt</value>
+  </objectPresentation>
+  <listPresentation>
+    <key>en</key>
+    <value>Additional prompts</value>
+  </listPresentation>
+  <levelCount>2</levelCount>
+  <foldersOnTop>true</foldersOnTop>
+  <codeLength>9</codeLength>
+  <descriptionLength>25</descriptionLength>
+  <codeType>String</codeType>
+  <codeAllowedLength>Variable</codeAllowedLength>
+  <checkUnique>true</checkUnique>
+  <autonumbering>true</autonumbering>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+  <defaultObjectForm>Catalog.AIAdditionalPrompts.Form.ItemForm</defaultObjectForm>
+  <attributes uuid="cbe1bf46-e10e-4e42-b9b4-5aabf9b9d686">
+    <name>Prompt</name>
+    <synonym>
+      <key>en</key>
+      <value>Prompt</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillChecking>ShowError</fillChecking>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+  </attributes>
+  <forms uuid="3b40c2b6-26f3-4b00-8cc5-80fb7bde59ee">
+    <name>ItemForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Item form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:Catalog>
