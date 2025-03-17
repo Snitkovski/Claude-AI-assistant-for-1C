@@ -23,4 +23,5 @@
   <content>Catalog.AIAdditionalPrompts</content>
   <content>InformationRegister.UsersAdditionalPrompts</content>
   <content>InformationRegister.AIAssistantChatsHistory</content>
+  <content>DefinedType.AIAssistantUser</content>
 </mdclass:Subsystem>

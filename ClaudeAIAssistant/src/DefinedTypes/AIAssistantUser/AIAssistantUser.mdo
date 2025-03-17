@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DefinedType xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="30e7a625-3a57-40a9-b72c-f4c6681d48d9">
+  <producedTypes>
+    <containerType typeId="1b34c49e-462b-4f75-a921-336bcf003cf3" valueTypeId="da771de8-9229-4c30-b565-276756e693c0"/>
+  </producedTypes>
+  <name>AIAssistantUser</name>
+  <synonym>
+    <key>en</key>
+    <value>AIAssistant user</value>
+  </synonym>
+  <type>
+    <types>String</types>
+    <stringQualifiers>
+      <length>100</length>
+    </stringQualifiers>
+  </type>
+</mdclass:DefinedType>
