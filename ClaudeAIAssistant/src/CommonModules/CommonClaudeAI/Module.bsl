@@ -284,6 +284,8 @@ Procedure UpdateChatMessages(Form) Export
 	EndDo;
 	
 	Form.ChatMessages = Form.ChatMessages + "</body></html>";
+	
+	CommonClaudeAIServerCall.WriteChatHistory(UserFullName(), Form.ChatData);
 EndProcedure
 
 #EndRegion

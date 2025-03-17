@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0191b24e-500e-4a51-b9dd-9c9b0924c871">
+  <name>CommonClaudeAIServerCall</name>
+  <synonym>
+    <key>en</key>
+    <value>Common claude AI Server call</value>
+  </synonym>
+  <server>true</server>
+  <serverCall>true</serverCall>
+</mdclass:CommonModule>

@@ -11,6 +11,8 @@ Procedure Clear(Form) Export
 	Form.NeedToAddGeneralPrompt = True;
 	
 	Form.ChatMessages = "<!DOCTYPE html><html><body></body></html>";
+	
+	CommonClaudeAIServerCall.WriteChatHistory(Undefined, Undefined);
 EndProcedure
 
 Procedure ChatMessagesOnClick(Item, EventData, StandardProcessing) Export
