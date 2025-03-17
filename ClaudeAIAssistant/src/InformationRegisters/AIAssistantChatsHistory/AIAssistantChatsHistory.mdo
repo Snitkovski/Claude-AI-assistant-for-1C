@@ -60,25 +60,6 @@
     <fillValue xsi:type="core:UndefinedValue"/>
     <mainFilter>true</mainFilter>
   </dimensions>
-  <dimensions uuid="a6f667b0-2e64-4813-b836-6a17025ebc84">
-    <name>ID</name>
-    <synonym>
-      <key>en</key>
-      <value>ID</value>
-    </synonym>
-    <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>255</length>
-      </stringQualifiers>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-    <fillValue xsi:type="core:UndefinedValue"/>
-    <mainFilter>true</mainFilter>
-  </dimensions>
   <forms uuid="56a2cd9e-2282-4d7a-a69f-b61e8336aa37">
     <name>RecordForm</name>
     <synonym>
