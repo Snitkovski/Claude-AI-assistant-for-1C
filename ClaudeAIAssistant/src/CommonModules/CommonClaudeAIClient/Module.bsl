@@ -12,7 +12,7 @@ Procedure Clear(Form) Export
 	
 	Form.ChatMessages = "<!DOCTYPE html><html><body></body></html>";
 	
-	CommonClaudeAIServerCall.WriteChatHistory(Undefined, Undefined);
+	CommonClaudeAIServerCall.WriteChatHistory();
 EndProcedure
 
 Procedure ChatMessagesOnClick(Item, EventData, StandardProcessing) Export

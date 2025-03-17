@@ -140,6 +140,12 @@ Procedure OnCreateAtServer(Form) Export
 	Form.AIParameters = CommonClaudeAICached.GetAIParameters();
 	
 	Form.NeedToAddGeneralPrompt = True;
+	
+	ChatHistoryData = GetChatHistoryDataByUser(UserFullName());
+	If ChatHistoryData <> Undefined Then
+		Form.ChatData.Load(ChatHistoryData);
+		UpdateChatMessages(Form);
+	EndIf;
 EndProcedure
 
 Procedure UpdateUsageStatistics(ResponseData) Export
@@ -287,5 +293,16 @@ Procedure UpdateChatMessages(Form) Export
 	
 	CommonClaudeAIServerCall.WriteChatHistory(UserFullName(), Form.ChatData);
 EndProcedure
+
+Function GetChatHistoryDataByUser(User) Export
+	Filter = New Structure("User", User);
+	
+	ChatHistoryData = InformationRegisters.AIAssistantChatsHistory.Get(Filter);
+	If ChatHistoryData.Property("ChatHistory") And TypeOf(ChatHistoryData.ChatHistory) = Type("ValueStorage") Then
+		Return ChatHistoryData.ChatHistory.Get();
+	EndIf;
+	
+	Return Undefined;
+EndFunction
 
 #EndRegion

@@ -7,7 +7,7 @@ Procedure WriteChatHistory(User = Undefined, ChatData = Undefined) Export
 		ChatDataTable.Columns.Add("Message", New TypeDescription("String"));
 		ChatDataTable.Columns.Add("Predefined", New TypeDescription("Boolean"));
 	Else
-		ChatDataTable = ChatData;
+		ChatDataTable = ChatData.Unload();
 	EndIf;
 	
 	If User = Undefined Then
