@@ -27,4 +27,8 @@ Function GetUserAdditionalPrompts(User) Export
 	Return QueryResult.Select();
 EndFunction
 
+Function GetCurrentUser() Export
+	Return UserFullName();
+EndFunction
+
 #EndRegion

@@ -11,7 +11,7 @@ Procedure WriteChatHistory(User = Undefined, ChatData = Undefined) Export
 	EndIf;
 	
 	If User = Undefined Then
-		UserFullName();
+		User = CommonClaudeAICached.GetCurrentUser();
 	EndIf;
 	
 	ChatHistoryRecord = InformationRegisters.AIAssistantChatsHistory.CreateRecordManager();

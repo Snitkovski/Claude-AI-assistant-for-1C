@@ -141,7 +141,7 @@ Procedure OnCreateAtServer(Form) Export
 	
 	Form.NeedToAddGeneralPrompt = True;
 	
-	ChatHistoryData = GetChatHistoryDataByUser(UserFullName());
+	ChatHistoryData = GetChatHistoryDataByUser(CommonClaudeAICached.GetCurrentUser());
 	If ChatHistoryData <> Undefined Then
 		Form.ChatData.Load(ChatHistoryData);
 		UpdateChatMessages(Form);
@@ -151,7 +151,7 @@ EndProcedure
 Procedure UpdateUsageStatistics(ResponseData) Export
 	Record = InformationRegisters.ClaudeAI_UsageStatistics.CreateRecordManager();
 	Record.Period = CurrentSessionDate();
-	Record.User = UserFullName();
+	Record.User = CommonClaudeAICached.GetCurrentUser();
 	Record.InputTokens = ResponseData.usage.output_tokens;
 	Record.OutputTokens = ResponseData.usage.input_tokens;
 	Try
@@ -196,7 +196,7 @@ Procedure SendRequestAtServer(Form) Export
 		Messages.Add(HistoryMessage);
 	EndDo;
 	
-	UserAdditionalPrompts = CommonClaudeAICached.GetUserAdditionalPrompts(UserFullName());
+	UserAdditionalPrompts = CommonClaudeAICached.GetUserAdditionalPrompts(CommonClaudeAICached.GetCurrentUser());
 	While UserAdditionalPrompts.Next() Do
 		Filter = New Structure;
 		Filter.Insert("Role", "user");
@@ -291,7 +291,7 @@ Procedure UpdateChatMessages(Form) Export
 	
 	Form.ChatMessages = Form.ChatMessages + "</body></html>";
 	
-	CommonClaudeAIServerCall.WriteChatHistory(UserFullName(), Form.ChatData);
+	CommonClaudeAIServerCall.WriteChatHistory(CommonClaudeAICached.GetCurrentUser(), Form.ChatData);
 EndProcedure
 
 Function GetChatHistoryDataByUser(User) Export
