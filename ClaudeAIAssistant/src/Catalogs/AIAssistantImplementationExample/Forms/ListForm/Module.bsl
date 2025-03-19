@@ -23,8 +23,7 @@ EndProcedure
 
 &AtClient
 Procedure AttachableCommand_AIAssistantCommandSendRequest()
-	//@skip-check undefined-variable
-	If Not ValueIsFilled(QueryText) Then
+	If Not ValueIsFilled(ThisObject.QueryText) Then
 		Return;
 	EndIf;
 	
