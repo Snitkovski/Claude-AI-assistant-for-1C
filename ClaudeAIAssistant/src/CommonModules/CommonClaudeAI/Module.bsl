@@ -196,7 +196,7 @@ Procedure SendRequestAtServer(Form) Export
 		Messages.Add(HistoryMessage);
 	EndDo;
 	
-	UserAdditionalPrompts = CommonClaudeAICached.GetUserAdditionalPrompts(CommonClaudeAICached.GetCurrentUser());
+	UserAdditionalPrompts = GetUserAdditionalPrompts(CommonClaudeAICached.GetCurrentUser());
 	While UserAdditionalPrompts.Next() Do
 		Filter = New Structure;
 		Filter.Insert("Role", "user");
@@ -303,6 +303,23 @@ Function GetChatHistoryDataByUser(User) Export
 	EndIf;
 	
 	Return Undefined;
+EndFunction
+
+Function GetUserAdditionalPrompts(User) Export
+	Query = New Query;
+	Query.Text =
+		"SELECT
+		|	UsersAdditionalPrompts.Prompt.Prompt AS Prompt
+		|FROM
+		|	InformationRegister.UsersAdditionalPrompts AS UsersAdditionalPrompts
+		|WHERE
+		|	UsersAdditionalPrompts.User = &User";
+	
+	Query.SetParameter("User", User);
+	
+	QueryResult = Query.Execute();
+	
+	Return QueryResult.Select();
 EndFunction
 
 #EndRegion
