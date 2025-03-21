@@ -22,4 +22,13 @@ Procedure ChatMessagesOnClick(Item, EventData, StandardProcessing) Export
 	EndIf;
 EndProcedure
 
+Procedure AdditionalContextDataDrag(Form, DragParameters, StandardProcessing) Export
+	StandardProcessing = False;
+	
+	For Each ContextObject In DragParameters.Value Do
+		AdditionalContextRow = Form.AdditionalContext.Add();
+		AdditionalContextRow.Context = ContextObject;
+	EndDo;
+EndProcedure
+
 #EndRegion

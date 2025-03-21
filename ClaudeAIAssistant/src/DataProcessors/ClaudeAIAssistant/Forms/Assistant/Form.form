@@ -184,6 +184,10 @@
         <horizontalAlign>Left</horizontalAlign>
         <autoFill>true</autoFill>
       </autoCommandBar>
+      <handlers>
+        <event>Drag</event>
+        <name>AdditionalContextDataDrag</name>
+      </handlers>
       <searchStringAddition>
         <name>AdditionalContextDataSearchString</name>
         <id>92</id>

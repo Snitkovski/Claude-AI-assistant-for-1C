@@ -23,6 +23,15 @@ EndProcedure
 
 #EndRegion
 
+#Region FormTableItemsEventHandlersAdditionalContextData
+
+&AtClient
+Procedure AdditionalContextDataDrag(Item, DragParameters, StandardProcessing, Row, Field)
+	CommonClaudeAIClient.AdditionalContextDataDrag(ThisObject, DragParameters, StandardProcessing);
+EndProcedure
+
+#EndRegion
+
 #Region FormCommandsEventHandlers
 
 &AtClient
