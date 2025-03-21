@@ -224,6 +224,13 @@ Procedure SendRequestAtServer(Form) Export
 	NewMessage.Insert("content", Form.QueryText + ". Your answer must be in html format");
 	Messages.Add(NewMessage);
 	
+	For Each AdditionalContext In Form.AdditionalContext Do
+		NewMessage = New Map;
+		NewMessage.Insert("role", "user");
+		NewMessage.Insert("content", ValueToXMLString(AdditionalContext.Context));
+		Messages.Add(NewMessage);
+	EndDo;
+	
 	NewChatMessage = Form.ChatData.Add();
 	NewChatMessage.Role = "user";
 	NewChatMessage.Message = Form.QueryText;
@@ -320,6 +327,29 @@ Function GetUserAdditionalPrompts(User) Export
 	QueryResult = Query.Execute();
 	
 	Return QueryResult.Select();
+EndFunction
+
+#EndRegion
+
+#Region Private
+
+// Converts (serializes) a value to an XML string.
+// Only objects that support serialization (see the Syntax Assistant) can be converted.
+// See also ValueFromXMLString.
+//
+// Parameters:
+//  Value - Arbitrary - a value to serialize into an XML string.
+//
+// Returns:
+//  String - 
+//
+Function ValueToXMLString(Value)
+	
+	XMLWriter = New XMLWriter;
+	XMLWriter.SetString();
+	XDTOSerializer.WriteXML(XMLWriter, Value.GetObject(), XMLTypeAssignment.Explicit);
+	
+	Return XMLWriter.Close();
 EndFunction
 
 #EndRegion
