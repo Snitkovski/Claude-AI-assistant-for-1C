@@ -319,6 +319,7 @@
         <key>en</key>
         <value>Additional context</value>
       </collapsedRepresentationTitle>
+      <collapsed>true</collapsed>
       <controlRepresentation>Picture</controlRepresentation>
       <representation>WeakSeparation</representation>
       <showLeftMargin>true</showLeftMargin>
