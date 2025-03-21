@@ -27,6 +27,21 @@ Procedure OnCreateAtServer(Form) Export
 	ChatDataPredefined = New FormAttribute("Predefined", New TypeDescription("Boolean"), "ChatData", "Predefined");
 	NewFormAttibutes.Add(ChatDataPredefined);
 	
+	AdditionalContext = New FormAttribute("AdditionalContext", New TypeDescription("ValueTable"));
+	NewFormAttibutes.Add(AdditionalContext);
+	
+	TypesArray = New Array;
+	TypesArray.Add(Documents.AllRefsType());
+	TypesArray.Add(Catalogs.AllRefsType());
+	TypesArray.Add(ChartsOfCharacteristicTypes.AllRefsType());
+	TypesArray.Add(ChartsOfAccounts.AllRefsType());
+	TypesArray.Add(ChartsOfCalculationTypes.AllRefsType());
+	TypesArray.Add(BusinessProcesses.AllRefsType());
+	TypesArray.Add(Tasks.AllRefsType());
+	
+	AdditionalContextContext = New FormAttribute("Context", New TypeDescription(TypesArray), "AdditionalContext", "Context");
+	NewFormAttibutes.Add(AdditionalContextContext);
+	
 	Form.ChangeAttributes(NewFormAttibutes);
 		
 	If Form.Items.Find("MainGroup") = Undefined Then
@@ -112,6 +127,45 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantChatMessages.ReadOnly = True;
 	AIAssistantChatMessages.TitleLocation = FormItemTitleLocation.None;
 	AIAssistantChatMessages.SetAction("OnClick", "Attachable_ChatMessagesOnClick");
+	
+	Form.ChatMessages = "<html><head></head><body></body></html>";
+
+	//Additional context
+	AIAssistantAdditionalContextGroup = Form.Items.Add("AIAssistantAdditionalContextGroup", Type("FormGroup"), AIAssistantGroup);
+	AIAssistantAdditionalContextGroup.Type = FormGroupType.UsualGroup;
+	AIAssistantAdditionalContextGroup.Representation = UsualGroupRepresentation.NormalSeparation;
+	AIAssistantAdditionalContextGroup.ShowTitle = True;
+	AIAssistantAdditionalContextGroup.CollapsedRepresentationTitle = NStr("en = 'Additional context'");
+	AIAssistantAdditionalContextGroup.Title = NStr("en = 'Additional context'");
+	AIAssistantAdditionalContextGroup.Group = ChildFormItemsGroup.Vertical;
+	AIAssistantAdditionalContextGroup.ChildItemsHorizontalAlign = ItemHorizontalLocation.Right;
+	AIAssistantAdditionalContextGroup.ChildItemsVerticalAlign = ItemVerticalAlign.Center;
+	AIAssistantAdditionalContextGroup.HorizontalStretch = True;
+	AIAssistantAdditionalContextGroup.VerticalStretch = False;
+	AIAssistantAdditionalContextGroup.ControlRepresentation = UsualGroupControlRepresentation.Picture;
+	AIAssistantAdditionalContextGroup.Behavior = UsualGroupBehavior.Collapsible;
+		
+	
+	 
+	AIAssistantAdditionalContextTable = Form.Items.Add("AIAssistantAdditionalContextTable", Type("FormTable"), AIAssistantAdditionalContextGroup);
+	AIAssistantAdditionalContextTable.DataPath = "AdditionalContext";
+	AIAssistantAdditionalContextTable.ReadOnly = False;
+	
+	AIAssistantAdditionalContextTableContext = Form.Items.Add("Context", Type("FormField"), AIAssistantAdditionalContextTable); 
+    AIAssistantAdditionalContextTableContext.Title = NStr("en = 'Context'"); 
+    AIAssistantAdditionalContextTableContext.DataPath = "AdditionalContext.Context"; 
+    AIAssistantAdditionalContextTableContext.Type = FormFieldType.InputField; 
+	
+	AIAssistantCommandClearAdditionalContext = Form.Commands.Add("AIAssistantCommandClearAdditionalContext");
+	AIAssistantCommandClearAdditionalContext.Action = "AttachableCommand_AIAssistantClearAdditionalContext";
+	AIAssistantCommandClearAdditionalContext.Title = NStr("en = 'Clear'");
+	AIAssistantCommandClearAdditionalContext.Representation = ButtonRepresentation.PictureAndText;
+	
+	//AIAssistantButtonClearAdditionalContext = Form.Items.Add("AIAssistantClearAdditionalContext", Type("FormButton"), Form.Items.AIAssistantCommandBar);
+//	AIAssistantButtonClearAdditionalContext.CommandName = "AIAssistantCommandClearAdditionalContext";
+//	AIAssistantButtonClearAdditionalContext.Picture = PictureLib.InputFieldClear;
+//	AIAssistantButtonClearAdditionalContext.Enabled = True;
+	
 	
 	AIAssistantCurrentMessageGroup = Form.Items.Add("AIAssistantCurrentMessageGroup", Type("FormGroup"), AIAssistantGroup);
 	AIAssistantCurrentMessageGroup.Type = FormGroupType.UsualGroup;
