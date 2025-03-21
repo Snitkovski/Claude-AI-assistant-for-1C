@@ -48,6 +48,11 @@ Procedure Send(Command)
 	SendAtServer();
 EndProcedure
 
+&AtClient
+Procedure ClearAdditionalContext(Command)
+	CommonClaudeAIClient.ClearAdditionalContext(ThisObject);
+EndProcedure
+
 #EndRegion
 
 #Region Private

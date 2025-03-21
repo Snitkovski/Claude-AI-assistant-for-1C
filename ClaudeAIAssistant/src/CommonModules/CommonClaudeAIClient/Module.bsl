@@ -31,4 +31,8 @@ Procedure AdditionalContextDataDrag(Form, DragParameters, StandardProcessing) Ex
 	EndDo;
 EndProcedure
 
+Procedure ClearAdditionalContext(Form) Export
+	Form.AdditionalContext.Clear();
+EndProcedure
+
 #EndRegion
