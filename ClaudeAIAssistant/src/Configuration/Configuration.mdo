@@ -48,6 +48,7 @@
   <commonPictures>CommonPicture.ClaudeAILogo</commonPictures>
   <commonPictures>CommonPicture.DataImport</commonPictures>
   <commonPictures>CommonPicture.UserWithoutPhoto</commonPictures>
+  <roles>Role.ClaudeAI_AddAdditionalContextToQuery</roles>
   <roles>Role.ClaudeAI_Administrator</roles>
   <roles>Role.ClaudeAI_User</roles>
   <commonModules>CommonModule.CommonClaudeAI</commonModules>
