@@ -39,6 +39,8 @@
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.AIAdditionalPrompts.Form.ItemForm</defaultObjectForm>
+  <defaultListForm>Catalog.AIAdditionalPrompts.Form.ListForm</defaultListForm>
+  <defaultChoiceForm>Catalog.AIAdditionalPrompts.Form.ChoiceForm</defaultChoiceForm>
   <attributes uuid="cbe1bf46-e10e-4e42-b9b4-5aabf9b9d686">
     <name>Prompt</name>
     <synonym>
@@ -61,6 +63,24 @@
     <synonym>
       <key>en</key>
       <value>Item form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="ac7f63f7-7431-4086-a8a9-68021e3a2d94">
+    <name>ListForm</name>
+    <synonym>
+      <key>en</key>
+      <value>List form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="9928c738-f1b3-4361-bec8-a7ec6c234949">
+    <name>ChoiceForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Choice form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
