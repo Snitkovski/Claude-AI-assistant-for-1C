@@ -5,6 +5,13 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	CommonClaudeAI.OnCreateAtServer(ThisObject);
 EndProcedure
 
+&AtClient
+Procedure NotificationProcessing(EventName, Parameter, Source)
+	If EventName = "AI_Assistant_Update" And Source <> ThisObject Then
+		AIAssistantUpdateAtServer();
+	EndIf;
+EndProcedure
+
 #EndRegion
 
 #Region Private
@@ -19,6 +26,7 @@ EndProcedure
 &AtClient
 Procedure AttachableCommand_AIAssistantClear()
 	CommonClaudeAIClient.Clear(ThisObject);
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 &AtClient
@@ -28,6 +36,7 @@ Procedure AttachableCommand_AIAssistantCommandSendRequest()
 	EndIf;
 	
 	AttachableCommand_AIAssistantCommandSendRequestAtServer();
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 &AtServer
@@ -44,22 +53,30 @@ EndProcedure
 &AtClient
 Procedure AttachableCommand_AIAssistantClearAdditionalContext(Command)
 	CommonClaudeAIClient.ClearAdditionalContext(ThisObject);
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 &AtClient
 Procedure Attachable_AdditionalContextDataDrag(Item, DragParameters, StandardProcessing, Row, Field)
 	CommonClaudeAIClient.AdditionalContextDataDrag(ThisObject, DragParameters, StandardProcessing);
 	Attachable_AdditionalContextDataOnChangeAtServer();
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 &AtClient
 Procedure Attachable_AdditionalContextDataContextOnChange(Item)
 	Attachable_AdditionalContextDataOnChangeAtServer();
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 &AtServer
 Procedure Attachable_AdditionalContextDataOnChangeAtServer()
 	CommonClaudeAI.WriteChatHistory(ThisObject);
+EndProcedure
+
+&AtServer
+Procedure AIAssistantUpdateAtServer()
+	CommonClaudeAI.AIAssistantUpdateAtServer(ThisObject);
 EndProcedure
 
 #EndRegion

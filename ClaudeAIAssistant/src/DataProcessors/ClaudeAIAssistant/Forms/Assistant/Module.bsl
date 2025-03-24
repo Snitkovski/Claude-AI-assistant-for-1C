@@ -5,15 +5,13 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	AIParameters = CommonClaudeAICached.GetAIParameters();
 	NeedToAddGeneralPrompt = True;
 
-	ChatHistoryData = CommonClaudeAI.GetChatHistoryDataByUser(CommonClaudeAICached.GetCurrentUser());
-	
-	If ChatHistoryData.ChatHistory <> Undefined Then
-		ChatData.Load(ChatHistoryData.ChatHistory);
-		CommonClaudeAI.UpdateChatMessages(ThisObject);
-	EndIf;
-	
-	If ChatHistoryData.AdditionalContext <> Undefined Then
-		AdditionalContext.Load(ChatHistoryData.AdditionalContext);
+	AIAssistantUpdateAtServer();
+EndProcedure
+
+&AtClient
+Procedure NotificationProcessing(EventName, Parameter, Source)
+	If EventName = "AI_Assistant_Update" And Source <> ThisObject Then
+		AIAssistantUpdateAtServer();
 	EndIf;
 EndProcedure
 
@@ -34,11 +32,13 @@ EndProcedure
 Procedure AdditionalContextDataDrag(Item, DragParameters, StandardProcessing, Row, Field)
 	CommonClaudeAIClient.AdditionalContextDataDrag(ThisObject, DragParameters, StandardProcessing);
 	AdditionalContextDataOnChangeAtServer();
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 &AtClient
 Procedure AdditionalContextDataContextOnChange(Item)
 	AdditionalContextDataOnChangeAtServer();
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 #EndRegion
@@ -48,6 +48,7 @@ EndProcedure
 &AtClient
 Procedure Clear(Command)
 	CommonClaudeAIClient.Clear(ThisObject);
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 &AtClient
@@ -57,11 +58,13 @@ Procedure Send(Command)
 	EndIf;
 	
 	SendAtServer();
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 &AtClient
 Procedure ClearAdditionalContext(Command)
 	CommonClaudeAIClient.ClearAdditionalContext(ThisObject);
+	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
 #EndRegion
@@ -77,6 +80,20 @@ EndProcedure
 &AtServer
 Procedure AdditionalContextDataOnChangeAtServer()
 	CommonClaudeAI.WriteChatHistory(ThisObject);
+EndProcedure
+
+&AtServer
+Procedure AIAssistantUpdateAtServer()
+	ChatHistoryData = CommonClaudeAI.GetChatHistoryDataByUser(CommonClaudeAICached.GetCurrentUser());
+	
+	If ChatHistoryData.ChatHistory <> Undefined Then
+		ChatData.Load(ChatHistoryData.ChatHistory);
+		CommonClaudeAI.UpdateChatMessages(ThisObject);
+	EndIf;
+	
+	If ChatHistoryData.AdditionalContext <> Undefined Then
+		AdditionalContext.Load(ChatHistoryData.AdditionalContext);
+	EndIf;
 EndProcedure
 
 #EndRegion

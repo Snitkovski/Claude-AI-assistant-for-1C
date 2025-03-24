@@ -195,16 +195,7 @@ Procedure OnCreateAtServer(Form) Export
 	
 	Form.NeedToAddGeneralPrompt = True;
 	
-	ChatHistoryData = GetChatHistoryDataByUser(CommonClaudeAICached.GetCurrentUser());
-	
-	If ChatHistoryData.ChatHistory <> Undefined Then
-		Form.ChatData.Load(ChatHistoryData.ChatHistory);
-		UpdateChatMessages(Form);
-	EndIf;
-	
-	If ChatHistoryData.AdditionalContext <> Undefined Then
-		Form.AdditionalContext.Load(ChatHistoryData.AdditionalContext);
-	EndIf;
+	AIAssistantUpdateAtServer(Form);
 EndProcedure
 
 Procedure UpdateUsageStatistics(ResponseData) Export
@@ -400,6 +391,19 @@ EndFunction
 
 Procedure WriteChatHistory(Form) Export
 	CommonClaudeAIServerCall.WriteChatHistory(CommonClaudeAICached.GetCurrentUser(), Form.ChatData, Form.AdditionalContext);
+EndProcedure
+
+Procedure AIAssistantUpdateAtServer(Form) Export
+	ChatHistoryData = GetChatHistoryDataByUser(CommonClaudeAICached.GetCurrentUser());
+	
+	If ChatHistoryData.ChatHistory <> Undefined Then
+		Form.ChatData.Load(ChatHistoryData.ChatHistory);
+		UpdateChatMessages(Form);
+	EndIf;
+	
+	If ChatHistoryData.AdditionalContext <> Undefined Then
+		Form.AdditionalContext.Load(ChatHistoryData.AdditionalContext);
+	EndIf;
 EndProcedure
 
 #EndRegion
