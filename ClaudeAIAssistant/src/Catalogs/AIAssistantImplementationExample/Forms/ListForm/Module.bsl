@@ -46,6 +46,11 @@ Procedure AttachableCommand_AIAssistantClearAdditionalContext(Command)
 	CommonClaudeAIClient.ClearAdditionalContext(ThisObject);
 EndProcedure
 
+&AtClient
+Procedure Attachable_AdditionalContextDataDrag(Item, DragParameters, StandardProcessing, Row, Field)
+	CommonClaudeAIClient.AdditionalContextDataDrag(ThisObject, DragParameters, StandardProcessing);
+EndProcedure
+
 #EndRegion
 
 #EndRegion

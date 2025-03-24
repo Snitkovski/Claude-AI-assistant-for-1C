@@ -133,7 +133,7 @@ Procedure OnCreateAtServer(Form) Export
 	//Additional context
 	AIAssistantAdditionalContextGroup = Form.Items.Add("AIAssistantAdditionalContextGroup", Type("FormGroup"), AIAssistantGroup);
 	AIAssistantAdditionalContextGroup.Type = FormGroupType.UsualGroup;
-	AIAssistantAdditionalContextGroup.Representation = UsualGroupRepresentation.NormalSeparation;
+	AIAssistantAdditionalContextGroup.Representation = UsualGroupRepresentation.WeakSeparation;
 	AIAssistantAdditionalContextGroup.ShowTitle = True;
 	AIAssistantAdditionalContextGroup.CollapsedRepresentationTitle = NStr("en = 'Additional context'");
 	AIAssistantAdditionalContextGroup.Title = NStr("en = 'Additional context'");
@@ -144,12 +144,12 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantAdditionalContextGroup.VerticalStretch = False;
 	AIAssistantAdditionalContextGroup.ControlRepresentation = UsualGroupControlRepresentation.Picture;
 	AIAssistantAdditionalContextGroup.Behavior = UsualGroupBehavior.Collapsible;
-	AIAssistantAdditionalContextGroup.Hide();
-	
+	AIAssistantAdditionalContextGroup.Hide();	
 	 
 	AIAssistantAdditionalContextTable = Form.Items.Add("AIAssistantAdditionalContextTable", Type("FormTable"), AIAssistantAdditionalContextGroup);
 	AIAssistantAdditionalContextTable.DataPath = "AdditionalContext";
 	AIAssistantAdditionalContextTable.ReadOnly = False;
+	AIAssistantAdditionalContextTable.SetAction("Drag", "Attachable_AdditionalContextDataDrag");
 	
 	AIAssistantAdditionalContextTableContext = Form.Items.Add("Context", Type("FormField"), AIAssistantAdditionalContextTable); 
     AIAssistantAdditionalContextTableContext.Title = NStr("en = 'Context'"); 
