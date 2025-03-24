@@ -149,6 +149,10 @@
         <dataPath xsi:type="form:DataPath">
           <segments>AdditionalContext.Context</segments>
         </dataPath>
+        <handlers>
+          <event>OnChange</event>
+          <name>AdditionalContextDataContextOnChange</name>
+        </handlers>
         <extendedTooltip>
           <name>AdditionalContextDataContextExtendedTooltip</name>
           <id>103</id>

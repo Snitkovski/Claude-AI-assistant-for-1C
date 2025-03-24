@@ -154,7 +154,8 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantAdditionalContextTableContext = Form.Items.Add("Context", Type("FormField"), AIAssistantAdditionalContextTable); 
     AIAssistantAdditionalContextTableContext.Title = NStr("en = 'Context'"); 
     AIAssistantAdditionalContextTableContext.DataPath = "AdditionalContext.Context"; 
-    AIAssistantAdditionalContextTableContext.Type = FormFieldType.InputField; 
+    AIAssistantAdditionalContextTableContext.Type = FormFieldType.InputField;
+    AIAssistantAdditionalContextTableContext.SetAction("OnChange", "Attachable_AdditionalContextDataContextOnChange"); 
 	
 	AIAssistantCommandClearAdditionalContext = Form.Commands.Add("AIAssistantCommandClearAdditionalContext");
 	AIAssistantCommandClearAdditionalContext.Action = "AttachableCommand_AIAssistantClearAdditionalContext";
@@ -195,9 +196,14 @@ Procedure OnCreateAtServer(Form) Export
 	Form.NeedToAddGeneralPrompt = True;
 	
 	ChatHistoryData = GetChatHistoryDataByUser(CommonClaudeAICached.GetCurrentUser());
-	If ChatHistoryData <> Undefined Then
-		Form.ChatData.Load(ChatHistoryData);
+	
+	If ChatHistoryData.ChatHistory <> Undefined Then
+		Form.ChatData.Load(ChatHistoryData.ChatHistory);
 		UpdateChatMessages(Form);
+	EndIf;
+	
+	If ChatHistoryData.AdditionalContext <> Undefined Then
+		Form.AdditionalContext.Load(ChatHistoryData.AdditionalContext);
 	EndIf;
 EndProcedure
 
@@ -351,18 +357,28 @@ Procedure UpdateChatMessages(Form) Export
 	
 	Form.ChatMessages = Form.ChatMessages + "</body></html>";
 	
-	CommonClaudeAIServerCall.WriteChatHistory(CommonClaudeAICached.GetCurrentUser(), Form.ChatData);
+	CommonClaudeAIServerCall.WriteChatHistory(CommonClaudeAICached.GetCurrentUser(), Form.ChatData, Form.AdditionalContext);
 EndProcedure
 
 Function GetChatHistoryDataByUser(User) Export
+	ChatHistoryDataByUser = New Structure;
 	Filter = New Structure("User", User);
 	
 	ChatHistoryData = InformationRegisters.AIAssistantChatsHistory.Get(Filter);
+	
 	If ChatHistoryData.Property("ChatHistory") And TypeOf(ChatHistoryData.ChatHistory) = Type("ValueStorage") Then
-		Return ChatHistoryData.ChatHistory.Get();
+		ChatHistoryDataByUser.Insert("ChatHistory", ChatHistoryData.ChatHistory.Get());
+	Else
+		ChatHistoryDataByUser.Insert("ChatHistory", Undefined);
 	EndIf;
 	
-	Return Undefined;
+	If ChatHistoryData.Property("AdditionalContext") And TypeOf(ChatHistoryData.AdditionalContext) = Type("ValueStorage") Then
+		ChatHistoryDataByUser.Insert("AdditionalContext", ChatHistoryData.AdditionalContext.Get());
+	Else
+		ChatHistoryDataByUser.Insert("AdditionalContext", Undefined);
+	EndIf;
+	
+	Return ChatHistoryDataByUser;
 EndFunction
 
 Function GetUserAdditionalPrompts(User) Export
@@ -381,6 +397,10 @@ Function GetUserAdditionalPrompts(User) Export
 	
 	Return QueryResult.Select();
 EndFunction
+
+Procedure WriteChatHistory(Form) Export
+	CommonClaudeAIServerCall.WriteChatHistory(CommonClaudeAICached.GetCurrentUser(), Form.ChatData, Form.AdditionalContext);
+EndProcedure
 
 #EndRegion
 

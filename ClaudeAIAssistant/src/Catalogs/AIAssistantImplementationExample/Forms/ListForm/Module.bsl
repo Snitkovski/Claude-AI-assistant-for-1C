@@ -49,6 +49,17 @@ EndProcedure
 &AtClient
 Procedure Attachable_AdditionalContextDataDrag(Item, DragParameters, StandardProcessing, Row, Field)
 	CommonClaudeAIClient.AdditionalContextDataDrag(ThisObject, DragParameters, StandardProcessing);
+	Attachable_AdditionalContextDataOnChangeAtServer();
+EndProcedure
+
+&AtClient
+Procedure Attachable_AdditionalContextDataContextOnChange(Item)
+	Attachable_AdditionalContextDataOnChangeAtServer();
+EndProcedure
+
+&AtServer
+Procedure Attachable_AdditionalContextDataOnChangeAtServer()
+	CommonClaudeAI.WriteChatHistory(ThisObject);
 EndProcedure
 
 #EndRegion

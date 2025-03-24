@@ -6,9 +6,14 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	NeedToAddGeneralPrompt = True;
 
 	ChatHistoryData = CommonClaudeAI.GetChatHistoryDataByUser(CommonClaudeAICached.GetCurrentUser());
-	If ChatHistoryData <> Undefined Then
-		ChatData.Load(ChatHistoryData);
+	
+	If ChatHistoryData.ChatHistory <> Undefined Then
+		ChatData.Load(ChatHistoryData.ChatHistory);
 		CommonClaudeAI.UpdateChatMessages(ThisObject);
+	EndIf;
+	
+	If ChatHistoryData.AdditionalContext <> Undefined Then
+		AdditionalContext.Load(ChatHistoryData.AdditionalContext);
 	EndIf;
 EndProcedure
 
@@ -28,6 +33,12 @@ EndProcedure
 &AtClient
 Procedure AdditionalContextDataDrag(Item, DragParameters, StandardProcessing, Row, Field)
 	CommonClaudeAIClient.AdditionalContextDataDrag(ThisObject, DragParameters, StandardProcessing);
+	AdditionalContextDataOnChangeAtServer();
+EndProcedure
+
+&AtClient
+Procedure AdditionalContextDataContextOnChange(Item)
+	AdditionalContextDataOnChangeAtServer();
 EndProcedure
 
 #EndRegion
@@ -61,6 +72,11 @@ EndProcedure
 Procedure SendAtServer()
 	CommonClaudeAI.SendRequestAtServer(ThisObject);
 	CommonClaudeAI.UpdateChatMessages(ThisObject);
+EndProcedure
+
+&AtServer
+Procedure AdditionalContextDataOnChangeAtServer()
+	CommonClaudeAI.WriteChatHistory(ThisObject);
 EndProcedure
 
 #EndRegion

@@ -41,6 +41,21 @@
     <dataHistory>Use</dataHistory>
     <fillValue xsi:type="core:UndefinedValue"/>
   </resources>
+  <resources uuid="3a747b6d-0006-435a-9089-1b4bad81c7e9">
+    <name>AdditionalContext</name>
+    <synonym>
+      <key>en</key>
+      <value>Additional context</value>
+    </synonym>
+    <type>
+      <types>ValueStorage</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
   <dimensions uuid="35be5bec-e5b0-4edb-8818-7dd4a83e5120">
     <name>User</name>
     <synonym>
