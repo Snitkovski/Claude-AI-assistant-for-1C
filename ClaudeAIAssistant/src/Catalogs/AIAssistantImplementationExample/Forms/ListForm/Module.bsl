@@ -41,6 +41,11 @@ Procedure Attachable_ChatMessagesOnClick(Item, EventData, StandardProcessing)
 	CommonClaudeAIClient.ChatMessagesOnClick(Item, EventData, StandardProcessing);
 EndProcedure
 
+&AtClient
+Procedure AttachableCommand_AIAssistantClearAdditionalContext(Command)
+	CommonClaudeAIClient.ClearAdditionalContext(ThisObject);
+EndProcedure
+
 #EndRegion
 
 #EndRegion

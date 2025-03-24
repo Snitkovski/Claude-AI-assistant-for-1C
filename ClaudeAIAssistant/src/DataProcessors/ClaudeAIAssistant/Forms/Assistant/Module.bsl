@@ -4,7 +4,7 @@
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	AIParameters = CommonClaudeAICached.GetAIParameters();
 	NeedToAddGeneralPrompt = True;
-	
+
 	ChatHistoryData = CommonClaudeAI.GetChatHistoryDataByUser(CommonClaudeAICached.GetCurrentUser());
 	If ChatHistoryData <> Undefined Then
 		ChatData.Load(ChatHistoryData);

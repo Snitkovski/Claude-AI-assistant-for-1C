@@ -144,7 +144,7 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantAdditionalContextGroup.VerticalStretch = False;
 	AIAssistantAdditionalContextGroup.ControlRepresentation = UsualGroupControlRepresentation.Picture;
 	AIAssistantAdditionalContextGroup.Behavior = UsualGroupBehavior.Collapsible;
-		
+	AIAssistantAdditionalContextGroup.Hide();
 	
 	 
 	AIAssistantAdditionalContextTable = Form.Items.Add("AIAssistantAdditionalContextTable", Type("FormTable"), AIAssistantAdditionalContextGroup);
@@ -161,11 +161,10 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantCommandClearAdditionalContext.Title = NStr("en = 'Clear'");
 	AIAssistantCommandClearAdditionalContext.Representation = ButtonRepresentation.PictureAndText;
 	
-	//AIAssistantButtonClearAdditionalContext = Form.Items.Add("AIAssistantClearAdditionalContext", Type("FormButton"), Form.Items.AIAssistantCommandBar);
-//	AIAssistantButtonClearAdditionalContext.CommandName = "AIAssistantCommandClearAdditionalContext";
-//	AIAssistantButtonClearAdditionalContext.Picture = PictureLib.InputFieldClear;
-//	AIAssistantButtonClearAdditionalContext.Enabled = True;
-	
+	AIAssistantButtonClearAdditionalContext = Form.Items.Add("AIAssistantClearAdditionalContext", Type("FormButton"), Form.Items.AIAssistantAdditionalContextTableCommandBar);
+	AIAssistantButtonClearAdditionalContext.CommandName = "AIAssistantCommandClearAdditionalContext";
+	AIAssistantButtonClearAdditionalContext.Picture = PictureLib.InputFieldClear;
+	AIAssistantButtonClearAdditionalContext.Enabled = True;
 	
 	AIAssistantCurrentMessageGroup = Form.Items.Add("AIAssistantCurrentMessageGroup", Type("FormGroup"), AIAssistantGroup);
 	AIAssistantCurrentMessageGroup.Type = FormGroupType.UsualGroup;
