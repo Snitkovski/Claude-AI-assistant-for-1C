@@ -18,7 +18,7 @@ EndProcedure
 Procedure ChatMessagesOnClick(Item, EventData, StandardProcessing) Export
 	StandardProcessing = False;
 	If EventData.Href <> Undefined Then
-		RunAppAsync(EventData.Href);
+		GotoURL(EventData.Href);
 	EndIf;
 EndProcedure
 
