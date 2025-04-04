@@ -41,6 +41,21 @@ Procedure AdditionalContextDataContextOnChange(Item)
 	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
+&AtClient
+Procedure AdditionalContextDataContextStartChoice(Item, ChoiceData, ChoiceByAdding, StandardProcessing)
+	CurrentData = Items.AdditionalContextData.CurrentData;
+	
+	If TypeOf(CurrentData.Context) = Type("String") Then
+		StandardProcessing = False;
+		
+		FileDialog = New FileDialog(FileDialogMode.Open);
+		FileDialog.Filter = "File data_ (*.*)|*.*";
+		FileDialog.Multiselect = False;
+		Handler = New NotifyDescription("AddFileToContextAfterFileSelection", ThisObject);
+		FileDialog.Show(Handler);
+	EndIf;
+EndProcedure
+
 #EndRegion
 
 #Region FormCommandsEventHandlers
@@ -93,6 +108,15 @@ Procedure AIAssistantUpdateAtServer()
 	
 	If ChatHistoryData.AdditionalContext <> Undefined Then
 		AdditionalContext.Load(ChatHistoryData.AdditionalContext);
+	EndIf;
+EndProcedure
+
+&AtClient
+Procedure AddFileToContextAfterFileSelection(SelectedFiles, AdditionalParameters) Export
+	If TypeOf(SelectedFiles) = Type("Array") Then
+		CurrentData = Items.AdditionalContextData.CurrentData;
+		CurrentData.Context = SelectedFiles[0];
+		CurrentData.IsExternalData = True;
 	EndIf;
 EndProcedure
 

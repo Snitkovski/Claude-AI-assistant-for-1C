@@ -277,7 +277,41 @@ Procedure SendRequestAtServer(Form) Export
 	For Each AdditionalContext In Form.AdditionalContext Do
 		NewMessage = New Map;
 		NewMessage.Insert("role", "user");
-		NewMessage.Insert("content", ValueToXMLString(AdditionalContext.Context));
+		
+		If AdditionalContext.IsExternalData Then
+			VarFile = New File(AdditionalContext.Context);
+			
+			If VarFile.Exist() Then
+				ContentArray = New Array;
+				
+				FileMediaType = GetFileMediaType(AdditionalContext.Context);
+				
+				If FileMediaType = "text/plain" Then
+					TextReader = New TextReader;
+					TextReader.Open(AdditionalContext.Context);
+					NewMessage.Insert("content", TextReader.Read());
+					TextReader.Close();
+				Else					
+					FilePart = New Map;
+					FilePart.Insert("type", "document");
+					
+					// Создаем правильную структуру source для файла
+					FileSource = New Map;
+					FileSource.Insert("type", "base64");
+					FileSource.Insert("media_type", "application/pdf");
+					FileSource.Insert("data", GetBase64FileContent(AdditionalContext.Context));
+					
+					FilePart.Insert("source", FileSource);
+					ContentArray.Add(FilePart);
+					
+					NewMessage.Insert("content", ContentArray);
+					Messages.Add(NewMessage);
+				EndIf;
+			EndIf;			
+		Else
+			NewMessage.Insert("content", ValueToXMLString(AdditionalContext.Context));	
+		EndIf;
+		
 		Messages.Add(NewMessage);
 	EndDo;
 	
@@ -429,4 +463,36 @@ Function ValueToXMLString(Value)
 	Return XMLWriter.Close();
 EndFunction
 
+Function GetFileMediaType(FilePath)
+    FileInfo = New File(FilePath);
+    Extension = Lower(FileInfo.Extension);
+    
+    // Define common media types
+    If Extension = ".jpg" Or Extension = ".jpeg" Then
+        Return "image/jpeg";
+    ElsIf Extension = ".png" Then
+        Return "image/png";
+    ElsIf Extension = ".gif" Then
+        Return "image/gif";
+    ElsIf Extension = ".pdf" Then
+        Return "application/pdf";
+    ElsIf Extension = ".doc" Or Extension = ".docx" Then
+        Return "application/msword";
+    ElsIf Extension = ".xls" Or Extension = ".xlsx" Then
+        Return "application/vnd.ms-excel";
+    ElsIf Extension = ".txt" Or Extension = ".xml" Then
+        Return "text/plain";
+    Else
+        Return "application/octet-stream"; // Default binary
+    EndIf;
+EndFunction
+
+Function GetBase64FileContent(FilePath)
+    BinaryData = New BinaryData(FilePath);
+	Base64FileContent = GetBase64StringFromBinaryData(BinaryData); 
+	Base64FileContent = StrReplace(Base64FileContent, Chars.LF, "");
+	Base64FileContent = StrReplace(Base64FileContent, Chars.CR, "");
+	
+	Return Base64FileContent;
+EndFunction
 #EndRegion
