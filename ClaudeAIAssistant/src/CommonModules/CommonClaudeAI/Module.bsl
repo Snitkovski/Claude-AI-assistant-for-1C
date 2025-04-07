@@ -269,11 +269,6 @@ Procedure SendRequestAtServer(Form) Export
 		Messages.Add(HistoryMessage);
 	EndDo;
 	
-	NewMessage = New Map;
-	NewMessage.Insert("role", "user");
-	NewMessage.Insert("content", Form.QueryText + ". Your answer must be in html format");
-	Messages.Add(NewMessage);
-	
 	For Each AdditionalContext In Form.AdditionalContext Do
 		NewMessage = New Map;
 		NewMessage.Insert("role", "user");
@@ -304,7 +299,31 @@ Procedure SendRequestAtServer(Form) Export
 					ContentArray.Add(FilePart);
 					
 					NewMessage.Insert("content", ContentArray);
-					Messages.Add(NewMessage);				
+					Messages.Add(NewMessage);
+				ElsIf FileMediaType = "application/vnd.ms-excel" Then
+					Stream = New MemoryStream;
+					SpreadsheetDocument = New SpreadsheetDocument;
+					SpreadsheetDocument.Read(AdditionalContext.Context);
+					SpreadsheetDocument.Write(Stream, SpreadsheetDocumentFileType.PDF);
+					
+					BinaryData = Stream.CloseAndGetBinaryData();
+					Base64Content = GetBase64StringFromBinaryData(BinaryData);
+					Base64Content = StrReplace(Base64Content, Chars.LF, "");
+					Base64Content = StrReplace(Base64Content, Chars.CR, "");
+	
+					FilePart = New Map;
+					FilePart.Insert("type", "document");
+					
+					FileSource = New Map;
+					FileSource.Insert("type", "base64");
+					FileSource.Insert("media_type", "application/pdf");
+					FileSource.Insert("data", Base64Content);
+					
+					FilePart.Insert("source", FileSource);
+					ContentArray.Add(FilePart);
+					
+					NewMessage.Insert("content", ContentArray);
+					Messages.Add(NewMessage); 					
 				Else					
 					FilePart = New Map;
 					FilePart.Insert("type", "document");
@@ -327,6 +346,11 @@ Procedure SendRequestAtServer(Form) Export
 		
 		Messages.Add(NewMessage);
 	EndDo;
+	
+	NewMessage = New Map;
+	NewMessage.Insert("role", "user");
+	NewMessage.Insert("content", Form.QueryText + ". Your answer must be in html format");
+	Messages.Add(NewMessage);
 	
 	NewChatMessage = Form.ChatData.Add();
 	NewChatMessage.Role = "user";
@@ -489,14 +513,10 @@ Function GetFileMediaType(FilePath)
         Return "image/gif";
     ElsIf Extension = ".pdf" Then
         Return "application/pdf";
-    ElsIf Extension = ".doc" Or Extension = ".docx" Then
-        Return "application/msword";
     ElsIf Extension = ".xls" Or Extension = ".xlsx" Then
         Return "application/vnd.ms-excel";
     ElsIf Extension = ".txt" Or Extension = ".xml" Then
         Return "text/plain";
-    Else
-        Return "application/octet-stream"; // Default binary
     EndIf;
 EndFunction
 
@@ -508,4 +528,5 @@ Function GetBase64FileContent(FilePath)
 	
 	Return Base64FileContent;
 EndFunction
+
 #EndRegion
