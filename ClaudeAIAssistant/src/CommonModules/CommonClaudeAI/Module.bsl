@@ -291,11 +291,24 @@ Procedure SendRequestAtServer(Form) Export
 					TextReader.Open(AdditionalContext.Context);
 					NewMessage.Insert("content", TextReader.Read());
 					TextReader.Close();
+				ElsIf StrFind(FileMediaType, "image") > 0 Then
+					FilePart = New Map;
+					FilePart.Insert("type", "image");
+					
+					FileSource = New Map;
+					FileSource.Insert("type", "base64");
+					FileSource.Insert("media_type", FileMediaType);
+					FileSource.Insert("data", GetBase64FileContent(AdditionalContext.Context));
+					
+					FilePart.Insert("source", FileSource);
+					ContentArray.Add(FilePart);
+					
+					NewMessage.Insert("content", ContentArray);
+					Messages.Add(NewMessage);				
 				Else					
 					FilePart = New Map;
 					FilePart.Insert("type", "document");
 					
-					// Создаем правильную структуру source для файла
 					FileSource = New Map;
 					FileSource.Insert("type", "base64");
 					FileSource.Insert("media_type", "application/pdf");
