@@ -79,6 +79,23 @@ Procedure AIAssistantUpdateAtServer()
 	CommonClaudeAI.AIAssistantUpdateAtServer(ThisObject);
 EndProcedure
 
+&AtClient
+Procedure Attachable_AdditionalContextDataContextStartChoice(Item, ChoiceData, ChoiceByAdding, StandardProcessing)
+	CurrentData = Items.AdditionalContextData.CurrentData;
+	
+	If TypeOf(CurrentData.Context) = Type("String") Then
+		StandardProcessing = False;
+		
+		Handler = New NotifyDescription("AIAssistantAddFileToContextAfterFileSelection", ThisObject);
+		CommonClaudeAIClient.OpenFileDialog(Handler);
+	EndIf;
+EndProcedure
+
+&AtClient
+Procedure AIAssistantAddFileToContextAfterFileSelection(SelectedFiles, AdditionalParameters) Export
+	CommonClaudeAIClient.AddFileToAdditionalContext(SelectedFiles, Items);
+EndProcedure
+
 #EndRegion
 
 #EndRegion
