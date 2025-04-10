@@ -48,7 +48,7 @@ Procedure AdditionalContextDataContextStartChoice(Item, ChoiceData, ChoiceByAddi
 	If TypeOf(CurrentData.Context) = Type("String") Then
 		StandardProcessing = False;
 		
-		Handler = New NotifyDescription("AddFileToContextAfterFileSelection", ThisObject);
+		Handler = New NotifyDescription("AIAssistantAddFileToContextAfterFileSelection", ThisObject);
 		CommonClaudeAIClient.OpenFileDialog(Handler);
 	EndIf;
 EndProcedure
@@ -109,12 +109,8 @@ Procedure AIAssistantUpdateAtServer()
 EndProcedure
 
 &AtClient
-Procedure AddFileToContextAfterFileSelection(SelectedFiles, AdditionalParameters) Export
-	If TypeOf(SelectedFiles) = Type("Array") Then
-		CurrentData = Items.AdditionalContextData.CurrentData;
-		CurrentData.Context = SelectedFiles[0];
-		CurrentData.IsExternalData = True;
-	EndIf;
+Procedure AIAssistantAddFileToContextAfterFileSelection(SelectedFiles, AdditionalParameters) Export
+	CommonClaudeAIClient.AddFileToAdditionalContext(SelectedFiles, Items);
 EndProcedure
 
 #EndRegion

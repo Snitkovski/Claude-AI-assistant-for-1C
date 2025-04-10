@@ -42,4 +42,12 @@ Procedure OpenFileDialog(Handler) Export
 	FileDialog.Show(Handler);
 EndProcedure
 
+Procedure AddFileToAdditionalContext(SelectedFiles, Items) Export
+	If TypeOf(SelectedFiles) = Type("Array") Then
+		CurrentData = Items.AdditionalContextData.CurrentData;
+		CurrentData.Context = SelectedFiles[0];
+		CurrentData.IsExternalData = True;
+	EndIf;
+EndProcedure
+
 #EndRegion
