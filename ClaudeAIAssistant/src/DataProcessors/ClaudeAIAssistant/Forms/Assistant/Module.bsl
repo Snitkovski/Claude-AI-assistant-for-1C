@@ -48,11 +48,8 @@ Procedure AdditionalContextDataContextStartChoice(Item, ChoiceData, ChoiceByAddi
 	If TypeOf(CurrentData.Context) = Type("String") Then
 		StandardProcessing = False;
 		
-		FileDialog = New FileDialog(FileDialogMode.Open);
-		FileDialog.Filter = "File data |*.jpg; *.jpeg; *.png; *.gif; *.pdf;	*.xls; *.xlsx; *.txt; *.xml";
-		FileDialog.Multiselect = False;
 		Handler = New NotifyDescription("AddFileToContextAfterFileSelection", ThisObject);
-		FileDialog.Show(Handler);
+		CommonClaudeAIClient.OpenFileDialog(Handler);
 	EndIf;
 EndProcedure
 

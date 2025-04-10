@@ -35,4 +35,11 @@ Procedure ClearAdditionalContext(Form) Export
 	Form.AdditionalContext.Clear();
 EndProcedure
 
+Procedure OpenFileDialog(Handler) Export
+	FileDialog = New FileDialog(FileDialogMode.Open);
+	FileDialog.Filter = "File data |*.jpg; *.jpeg; *.png; *.gif; *.pdf;	*.xls; *.xlsx; *.txt; *.xml";
+	FileDialog.Multiselect = False;
+	FileDialog.Show(Handler);
+EndProcedure
+
 #EndRegion
