@@ -71,7 +71,7 @@ EndProcedure
 
 &AtClient
 Procedure Attachable_AdditionalContextDataContextStartChoice(Item, ChoiceData, ChoiceByAdding, StandardProcessing)
-	CurrentData = Items.AIAssistantAdditionalContextTable.CurrentData;
+	CurrentData = Items.AdditionalContextData.CurrentData;
 	
 	If TypeOf(CurrentData.Context) = Type("String") Then
 		StandardProcessing = False;

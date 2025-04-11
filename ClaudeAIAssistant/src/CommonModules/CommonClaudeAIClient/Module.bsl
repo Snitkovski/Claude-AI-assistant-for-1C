@@ -44,7 +44,7 @@ EndProcedure
 
 Procedure AddFileToAdditionalContext(SelectedFiles, Items) Export
 	If TypeOf(SelectedFiles) = Type("Array") Then
-		CurrentData = Items.AIAssistantAdditionalContextTable.CurrentData;
+		CurrentData = Items.AdditionalContextData.CurrentData;
 		CurrentData.Context = SelectedFiles[0];
 		CurrentData.IsExternalData = True;
 	EndIf;

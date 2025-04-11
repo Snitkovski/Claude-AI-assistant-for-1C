@@ -148,31 +148,31 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantAdditionalContextGroup.Behavior = UsualGroupBehavior.Collapsible;
 	AIAssistantAdditionalContextGroup.Hide();	
 	 
-	AIAssistantAdditionalContextTable = Form.Items.Add("AIAssistantAdditionalContextTable", Type("FormTable"), AIAssistantAdditionalContextGroup);
-	AIAssistantAdditionalContextTable.DataPath = "AdditionalContext";
-	AIAssistantAdditionalContextTable.ReadOnly = False;
-	AIAssistantAdditionalContextTable.SetAction("Drag", "Attachable_AdditionalContextDataDrag");
+	AdditionalContextData = Form.Items.Add("AdditionalContextData", Type("FormTable"), AIAssistantAdditionalContextGroup);
+	AdditionalContextData.DataPath = "AdditionalContext";
+	AdditionalContextData.ReadOnly = False;
+	AdditionalContextData.SetAction("Drag", "Attachable_AdditionalContextDataDrag");
 	
-	AIAssistantAdditionalContextTableIsExternalData = Form.Items.Add("AdditionalContextIsExternalData", Type("FormField"), AIAssistantAdditionalContextTable); 
-    AIAssistantAdditionalContextTableIsExternalData.Title = NStr("en = ' '"); 
-    AIAssistantAdditionalContextTableIsExternalData.DataPath = "AdditionalContext.IsExternalData"; 
-    AIAssistantAdditionalContextTableIsExternalData.Type = FormFieldType.PictureField;
-    AIAssistantAdditionalContextTableIsExternalData.ReadOnly = True;
-	AIAssistantAdditionalContextTableIsExternalData.ValuesPicture = PictureLib.ExternalDataSource;
+	AdditionalContextDataIsExternalData = Form.Items.Add("AdditionalContextIsExternalData", Type("FormField"), AdditionalContextData); 
+    AdditionalContextDataIsExternalData.Title = NStr("en = ' '"); 
+    AdditionalContextDataIsExternalData.DataPath = "AdditionalContext.IsExternalData"; 
+    AdditionalContextDataIsExternalData.Type = FormFieldType.PictureField;
+    AdditionalContextDataIsExternalData.ReadOnly = True;
+	AdditionalContextDataIsExternalData.ValuesPicture = PictureLib.ExternalDataSource;
 
-	AIAssistantAdditionalContextTableContext = Form.Items.Add("AdditionalContextContext", Type("FormField"), AIAssistantAdditionalContextTable); 
-    AIAssistantAdditionalContextTableContext.Title = NStr("en = 'Context'"); 
-    AIAssistantAdditionalContextTableContext.DataPath = "AdditionalContext.Context"; 
-    AIAssistantAdditionalContextTableContext.Type = FormFieldType.InputField;
-    AIAssistantAdditionalContextTableContext.SetAction("OnChange", "Attachable_AdditionalContextDataContextOnChange");
-    AIAssistantAdditionalContextTableContext.SetAction("StartChoice", "Attachable_AdditionalContextDataContextStartChoice"); 
+	AdditionalContextDataContext = Form.Items.Add("AdditionalContextContext", Type("FormField"), AdditionalContextData); 
+    AdditionalContextDataContext.Title = NStr("en = 'Context'"); 
+    AdditionalContextDataContext.DataPath = "AdditionalContext.Context"; 
+    AdditionalContextDataContext.Type = FormFieldType.InputField;
+    AdditionalContextDataContext.SetAction("OnChange", "Attachable_AdditionalContextDataContextOnChange");
+    AdditionalContextDataContext.SetAction("StartChoice", "Attachable_AdditionalContextDataContextStartChoice"); 
 	
 	AIAssistantCommandClearAdditionalContext = Form.Commands.Add("AIAssistantCommandClearAdditionalContext");
 	AIAssistantCommandClearAdditionalContext.Action = "AttachableCommand_AIAssistantClearAdditionalContext";
 	AIAssistantCommandClearAdditionalContext.Title = NStr("en = 'Clear'");
 	AIAssistantCommandClearAdditionalContext.Representation = ButtonRepresentation.PictureAndText;
 	
-	AIAssistantButtonClearAdditionalContext = Form.Items.Add("AIAssistantClearAdditionalContext", Type("FormButton"), Form.Items.AIAssistantAdditionalContextTableCommandBar);
+	AIAssistantButtonClearAdditionalContext = Form.Items.Add("AIAssistantClearAdditionalContext", Type("FormButton"), Form.Items.AdditionalContextDataCommandBar);
 	AIAssistantButtonClearAdditionalContext.CommandName = "AIAssistantCommandClearAdditionalContext";
 	AIAssistantButtonClearAdditionalContext.Picture = PictureLib.InputFieldClear;
 	AIAssistantButtonClearAdditionalContext.Enabled = True;
