@@ -69,6 +69,18 @@ Procedure Attachable_AdditionalContextDataContextOnChange(Item)
 	Notify("AI_Assistant_Update",, ThisObject);
 EndProcedure
 
+&AtClient
+Procedure Attachable_AdditionalContextDataContextStartChoice(Item, ChoiceData, ChoiceByAdding, StandardProcessing)
+	CurrentData = Items.AIAssistantAdditionalContextTable.CurrentData;
+	
+	If TypeOf(CurrentData.Context) = Type("String") Then
+		StandardProcessing = False;
+		
+		Handler = New NotifyDescription("AIAssistantAddFileToContextAfterFileSelection", ThisObject);
+		CommonClaudeAIClient.OpenFileDialog(Handler);
+	EndIf;
+EndProcedure
+
 &AtServer
 Procedure Attachable_AdditionalContextDataOnChangeAtServer()
 	CommonClaudeAI.WriteChatHistory(ThisObject);
@@ -77,18 +89,6 @@ EndProcedure
 &AtServer
 Procedure AIAssistantUpdateAtServer()
 	CommonClaudeAI.AIAssistantUpdateAtServer(ThisObject);
-EndProcedure
-
-&AtClient
-Procedure Attachable_AdditionalContextDataContextStartChoice(Item, ChoiceData, ChoiceByAdding, StandardProcessing)
-	CurrentData = Items.AdditionalContextData.CurrentData;
-	
-	If TypeOf(CurrentData.Context) = Type("String") Then
-		StandardProcessing = False;
-		
-		Handler = New NotifyDescription("AIAssistantAddFileToContextAfterFileSelection", ThisObject);
-		CommonClaudeAIClient.OpenFileDialog(Handler);
-	EndIf;
 EndProcedure
 
 &AtClient

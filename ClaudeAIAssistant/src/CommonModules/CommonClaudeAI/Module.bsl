@@ -41,6 +41,8 @@ Procedure OnCreateAtServer(Form) Export
 	
 	AdditionalContextContext = New FormAttribute("Context", New TypeDescription(TypesArray), "AdditionalContext", "Context");
 	NewFormAttibutes.Add(AdditionalContextContext);
+	AdditionalContextContext = New FormAttribute("IsExternalData", New TypeDescription("Boolean"), "AdditionalContext", "IsExternalData");
+	NewFormAttibutes.Add(AdditionalContextContext);
 	
 	Form.ChangeAttributes(NewFormAttibutes);
 		
@@ -151,11 +153,19 @@ Procedure OnCreateAtServer(Form) Export
 	AIAssistantAdditionalContextTable.ReadOnly = False;
 	AIAssistantAdditionalContextTable.SetAction("Drag", "Attachable_AdditionalContextDataDrag");
 	
-	AIAssistantAdditionalContextTableContext = Form.Items.Add("Context", Type("FormField"), AIAssistantAdditionalContextTable); 
+	AIAssistantAdditionalContextTableIsExternalData = Form.Items.Add("AdditionalContextIsExternalData", Type("FormField"), AIAssistantAdditionalContextTable); 
+    AIAssistantAdditionalContextTableIsExternalData.Title = NStr("en = ' '"); 
+    AIAssistantAdditionalContextTableIsExternalData.DataPath = "AdditionalContext.IsExternalData"; 
+    AIAssistantAdditionalContextTableIsExternalData.Type = FormFieldType.PictureField;
+    AIAssistantAdditionalContextTableIsExternalData.ReadOnly = True;
+	AIAssistantAdditionalContextTableIsExternalData.ValuesPicture = PictureLib.ExternalDataSource;
+
+	AIAssistantAdditionalContextTableContext = Form.Items.Add("AdditionalContextContext", Type("FormField"), AIAssistantAdditionalContextTable); 
     AIAssistantAdditionalContextTableContext.Title = NStr("en = 'Context'"); 
     AIAssistantAdditionalContextTableContext.DataPath = "AdditionalContext.Context"; 
     AIAssistantAdditionalContextTableContext.Type = FormFieldType.InputField;
-    AIAssistantAdditionalContextTableContext.SetAction("OnChange", "Attachable_AdditionalContextDataContextOnChange"); 
+    AIAssistantAdditionalContextTableContext.SetAction("OnChange", "Attachable_AdditionalContextDataContextOnChange");
+    AIAssistantAdditionalContextTableContext.SetAction("StartChoice", "Attachable_AdditionalContextDataContextStartChoice"); 
 	
 	AIAssistantCommandClearAdditionalContext = Form.Commands.Add("AIAssistantCommandClearAdditionalContext");
 	AIAssistantCommandClearAdditionalContext.Action = "AttachableCommand_AIAssistantClearAdditionalContext";

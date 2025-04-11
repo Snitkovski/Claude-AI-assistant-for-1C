@@ -110,7 +110,11 @@ EndProcedure
 
 &AtClient
 Procedure AIAssistantAddFileToContextAfterFileSelection(SelectedFiles, AdditionalParameters) Export
-	CommonClaudeAIClient.AddFileToAdditionalContext(SelectedFiles, Items);
+	If TypeOf(SelectedFiles) = Type("Array") Then
+		CurrentData = Items.AdditionalContextData.CurrentData;
+		CurrentData.Context = SelectedFiles[0];
+		CurrentData.IsExternalData = True;
+	EndIf;
 EndProcedure
 
 #EndRegion
