@@ -63,6 +63,7 @@
   <catalogs>Catalog.AIAdditionalPrompts</catalogs>
   <catalogs>Catalog.AIAssistantImplementationExample</catalogs>
   <reports>Report.ClaudeAI_UsageStatistics</reports>
+  <dataProcessors>DataProcessor.ClaudeAIAdministrationPanel</dataProcessors>
   <dataProcessors>DataProcessor.ClaudeAIAssistant</dataProcessors>
   <informationRegisters>InformationRegister.AIAssistantChatsHistory</informationRegisters>
   <informationRegisters>InformationRegister.ClaudeAI_UsageStatistics</informationRegisters>

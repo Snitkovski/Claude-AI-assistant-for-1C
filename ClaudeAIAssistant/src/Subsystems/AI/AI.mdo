@@ -25,4 +25,5 @@
   <content>InformationRegister.AIAssistantChatsHistory</content>
   <content>DefinedType.AIAssistantUser</content>
   <content>Role.ClaudeAI_AddAdditionalContextToQuery</content>
+  <content>DataProcessor.ClaudeAIAdministrationPanel</content>
 </mdclass:Subsystem>

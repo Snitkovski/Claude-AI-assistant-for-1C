@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d5bd8618-e98a-4e6d-a794-453e1a252731">
+  <producedTypes>
+    <objectType typeId="96561535-c1aa-46e0-9683-5af81c5e3222" valueTypeId="00089b72-841d-4acc-98fb-b63cd74f788f"/>
+    <managerType typeId="dd337db7-24a6-4be2-adea-3c52fd341e6f" valueTypeId="5d003524-c88d-4c5f-929c-d1907ba1cbe1"/>
+  </producedTypes>
+  <name>ClaudeAIAdministrationPanel</name>
+  <synonym>
+    <key>en</key>
+    <value>Claude AI administration panel</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.ClaudeAIAdministrationPanel.Form.AdministrationPanel</defaultForm>
+  <forms uuid="6cd25ad8-19f7-45be-9cb7-76282c269088">
+    <name>AdministrationPanel</name>
+    <synonym>
+      <key>en</key>
+      <value>Administration panel</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>
