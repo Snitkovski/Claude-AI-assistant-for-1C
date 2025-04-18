@@ -26,4 +26,5 @@
   <content>DefinedType.AIAssistantUser</content>
   <content>Role.ClaudeAI_AddAdditionalContextToQuery</content>
   <content>DataProcessor.ClaudeAIAdministrationPanel</content>
+  <content>InformationRegister.DataSourcesForAIAssitant</content>
 </mdclass:Subsystem>

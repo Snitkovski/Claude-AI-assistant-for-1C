@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:InformationRegister xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="ec4625b1-9f8f-42aa-8f57-4f409f0b3bfc">
+  <producedTypes>
+    <selectionType typeId="3f81ad0e-8fd1-46d0-922e-fb7d0bb19b0b" valueTypeId="b3b28437-0a8c-4211-8413-e8d7006475fa"/>
+    <listType typeId="e1119160-6bcc-4bc5-a8b6-292b22562d4e" valueTypeId="fcf31cb6-3ad5-4e16-8654-6af0f061762e"/>
+    <managerType typeId="e55e24d1-6c00-4024-93b5-1d5f3fbf5dcd" valueTypeId="96d775ba-345b-4bca-aa67-90689d86bceb"/>
+    <recordSetType typeId="4bca6200-1d9e-4cd8-b4d5-3593d6bbe5be" valueTypeId="9d9f4362-c913-4e2f-9991-e0ff48f47e0c"/>
+    <recordKeyType typeId="fb83fadc-afca-470f-bece-cecdc3d908c1" valueTypeId="4fe16b5f-889e-4d52-b5c8-abf24d37be5c"/>
+    <recordType typeId="f63d67d5-3a32-49fb-a44b-8bf3b44a3b19" valueTypeId="ee99da75-10b4-4fa6-a47f-0f28614d629d"/>
+    <recordManagerType typeId="8dc4790c-48e4-4266-9b23-56aca4ee577a" valueTypeId="4cf95512-18c3-4bd3-8245-354fab5c181f"/>
+  </producedTypes>
+  <name>DataSourcesForAIAssitant</name>
+  <synonym>
+    <key>en</key>
+    <value>Data sources for AI assitant</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <editType>InDialog</editType>
+  <defaultRecordForm>InformationRegister.DataSourcesForAIAssitant.Form.RecordForm</defaultRecordForm>
+  <defaultListForm>InformationRegister.DataSourcesForAIAssitant.Form.ListForm</defaultListForm>
+  <dataLockControlMode>Managed</dataLockControlMode>
+  <resources uuid="137d7855-70b3-402d-b361-b244533749b6">
+    <name>Read</name>
+    <synonym>
+      <key>en</key>
+      <value>Read</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
+  <resources uuid="e2887199-a713-44b9-97f3-3bd2eb415c64">
+    <name>Write</name>
+    <synonym>
+      <key>en</key>
+      <value>Write</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </resources>
+  <dimensions uuid="a264665e-45f0-492a-9954-0e08b1b6e495">
+    <name>DataSource</name>
+    <synonym>
+      <key>en</key>
+      <value>Data source</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>255</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <mainFilter>true</mainFilter>
+  </dimensions>
+  <forms uuid="a7c18d30-2ce8-42ec-b96b-7898d2ed749e">
+    <name>RecordForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Record form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="a992bf63-2161-4f4a-ac38-8b89517c4544">
+    <name>ListForm</name>
+    <synonym>
+      <key>en</key>
+      <value>List form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:InformationRegister>

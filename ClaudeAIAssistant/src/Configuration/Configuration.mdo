@@ -67,5 +67,6 @@
   <dataProcessors>DataProcessor.ClaudeAIAssistant</dataProcessors>
   <informationRegisters>InformationRegister.AIAssistantChatsHistory</informationRegisters>
   <informationRegisters>InformationRegister.ClaudeAI_UsageStatistics</informationRegisters>
+  <informationRegisters>InformationRegister.DataSourcesForAIAssitant</informationRegisters>
   <informationRegisters>InformationRegister.UsersAdditionalPrompts</informationRegisters>
 </mdclass:Configuration>
