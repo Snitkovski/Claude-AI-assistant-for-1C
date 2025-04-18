@@ -20,6 +20,25 @@ EndProcedure
 
 #EndRegion
 
+#Region FormCommandsEventHandlers
+
+&AtClient
+Procedure CatalogAdditionalPrompts(Command)
+	OpenForm("Catalog.AIAdditionalPrompts.ListForm");
+EndProcedure
+
+&AtClient
+Procedure UsersAdditionalPrompts(Command)
+	OpenForm("InformationRegister.UsersAdditionalPrompts.ListForm");
+EndProcedure
+
+&AtClient
+Procedure UsageStatistics(Command)
+	OpenForm("Report.ClaudeAI_UsageStatistics.Form");
+EndProcedure
+
+#EndRegion
+
 #Region Private
 
 &AtServer
