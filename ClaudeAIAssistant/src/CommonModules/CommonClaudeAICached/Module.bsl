@@ -1,4 +1,4 @@
-#Region Public
+#Region Internal
 
 Function GetAIParameters() Export
 	AIParameters = New Structure;
