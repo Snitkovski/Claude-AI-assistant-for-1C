@@ -1,3 +1,12 @@
+#Region FormEventHandlers
+
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	LoadDataSourcesForAIAssitant();
+EndProcedure
+
+#EndRegion
+
 #Region FormHeaderItemsEventHandlers
 
 &AtClient
@@ -16,6 +25,15 @@ EndProcedure
 Procedure API_KeyOnChange(Item)
 	AttributeOnChangeServer(Item.Name);
     RefreshInterface()
+EndProcedure
+
+#EndRegion
+
+#Region FormTableItemsEventHandlersDataSourcesForAIAssitant
+
+&AtClient
+Procedure DataSourcesForAIAssitantOnChange(Item)
+	SaveDataSourcesForAIAssitant();
 EndProcedure
 
 #EndRegion
@@ -84,5 +102,18 @@ Procedure WriteAttributeValue(DataPathAttribute, Result)
 	EndIf;
 EndProcedure
 
+&AtServer
+Procedure LoadDataSourcesForAIAssitant()
+	DataSourcesForAIAssitantData = InformationRegisters.DataSourcesForAIAssitant.CreateRecordSet();
+	DataSourcesForAIAssitantData.Read();
+	DataSourcesForAIAssitant.Load(DataSourcesForAIAssitantData.Unload());
+EndProcedure
+
+&AtServer
+Procedure SaveDataSourcesForAIAssitant()
+	DataSourcesForAIAssitantRecordSet = InformationRegisters.DataSourcesForAIAssitant.CreateRecordSet();
+	DataSourcesForAIAssitantRecordSet.Load(DataSourcesForAIAssitant.Unload());
+	DataSourcesForAIAssitantRecordSet.Write();
+EndProcedure
 
 #EndRegion
