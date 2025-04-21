@@ -19,36 +19,6 @@
   <defaultRecordForm>InformationRegister.DataSourcesForAIAssitant.Form.RecordForm</defaultRecordForm>
   <defaultListForm>InformationRegister.DataSourcesForAIAssitant.Form.ListForm</defaultListForm>
   <dataLockControlMode>Managed</dataLockControlMode>
-  <resources uuid="137d7855-70b3-402d-b361-b244533749b6">
-    <name>Read</name>
-    <synonym>
-      <key>en</key>
-      <value>Read</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-    <fillValue xsi:type="core:UndefinedValue"/>
-  </resources>
-  <resources uuid="e2887199-a713-44b9-97f3-3bd2eb415c64">
-    <name>Write</name>
-    <synonym>
-      <key>en</key>
-      <value>Write</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-    <fillValue xsi:type="core:UndefinedValue"/>
-  </resources>
   <dimensions uuid="a264665e-45f0-492a-9954-0e08b1b6e495">
     <name>DataSource</name>
     <synonym>
@@ -67,6 +37,36 @@
     <dataHistory>Use</dataHistory>
     <fillValue xsi:type="core:UndefinedValue"/>
     <mainFilter>true</mainFilter>
+  </dimensions>
+  <dimensions uuid="888214cd-1a89-4251-a4e4-6634205e594a">
+    <name>Read</name>
+    <synonym>
+      <key>en</key>
+      <value>Read</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
+  </dimensions>
+  <dimensions uuid="1f66cd80-38b3-4284-af52-d3fa8dc12524">
+    <name>Write</name>
+    <synonym>
+      <key>en</key>
+      <value>Write</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+    <fillValue xsi:type="core:UndefinedValue"/>
   </dimensions>
   <forms uuid="a7c18d30-2ce8-42ec-b96b-7898d2ed749e">
     <name>RecordForm</name>

@@ -4,13 +4,6 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
-		<name>InformationRegister.DataSourcesForAIAssitant.Resource.Read</name>
-		<right>
-			<name>Edit</name>
-			<value>false</value>
-		</right>
-	</object>
-	<object>
 		<name>InformationRegister.UsersAdditionalPrompts</name>
 		<right>
 			<name>Read</name>
@@ -360,13 +353,6 @@
 	</object>
 	<object>
 		<name>InformationRegister.DataSourcesForAIAssitant.Dimension.DataSource</name>
-		<right>
-			<name>Edit</name>
-			<value>false</value>
-		</right>
-	</object>
-	<object>
-		<name>InformationRegister.DataSourcesForAIAssitant.Resource.Write</name>
 		<right>
 			<name>Edit</name>
 			<value>false</value>
