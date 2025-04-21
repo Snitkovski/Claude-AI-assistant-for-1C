@@ -47,6 +47,7 @@
   <subsystems>Subsystem.AI</subsystems>
   <commonPictures>CommonPicture.ClaudeAILogo</commonPictures>
   <commonPictures>CommonPicture.DataImport</commonPictures>
+  <commonPictures>CommonPicture.MetadataObjectsIcons</commonPictures>
   <commonPictures>CommonPicture.UserWithoutPhoto</commonPictures>
   <roles>Role.ClaudeAI_AddAdditionalContextToQuery</roles>
   <roles>Role.ClaudeAI_Administrator</roles>
@@ -60,6 +61,7 @@
   <constants>Constant.API_Key</constants>
   <constants>Constant.Max_Tokens</constants>
   <constants>Constant.Model</constants>
+  <commonForms>CommonForm.SelectFromMetadata</commonForms>
   <catalogs>Catalog.AIAdditionalPrompts</catalogs>
   <catalogs>Catalog.AIAssistantImplementationExample</catalogs>
   <reports>Report.ClaudeAI_UsageStatistics</reports>

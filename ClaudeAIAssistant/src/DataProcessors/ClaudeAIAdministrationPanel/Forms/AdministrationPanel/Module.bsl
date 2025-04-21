@@ -36,6 +36,14 @@ Procedure DataSourcesForAIAssitantOnChange(Item)
 	SaveDataSourcesForAIAssitant();
 EndProcedure
 
+&AtClient
+Procedure DataSourcesForAIAssitantDataSourceStartChoice(Item, ChoiceData, ChoiceByAdding, StandardProcessing)
+	StandardProcessing = False;
+	
+	Handler = New NotifyDescription("MetadataSelection", ThisObject);
+	OpenForm("CommonForm.SelectFromMetadata", , ThisObject, , , , Handler);
+EndProcedure
+
 #EndRegion
 
 #Region FormCommandsEventHandlers
@@ -58,6 +66,19 @@ EndProcedure
 #EndRegion
 
 #Region Private
+
+#Region InternalProceduresAndFunctions
+
+&AtClient
+Procedure MetadataSelection(Result, AdditionalParameters) Export
+	If Result = Undefined Then
+		Return;
+	EndIf;
+	
+	Items.DataSourcesForAIAssitant.CurrentData.DataSource = Result;
+EndProcedure
+
+#EndRegion
 
 &AtServer
 Function AttributeOnChangeServer(ItemName)	
