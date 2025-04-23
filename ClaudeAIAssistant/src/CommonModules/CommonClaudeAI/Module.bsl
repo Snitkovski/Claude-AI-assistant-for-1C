@@ -225,7 +225,12 @@ Procedure UpdateUsageStatistics(ResponseData) Export
 	EndTry;
 EndProcedure
 
-Procedure SendRequestAtServer(Form) Export
+Procedure SendRequestAtServer(Form, Attempts = 0) Export
+	If Attempts = 3 Then
+		AddNewChatMessage(Form, "assistant", NStr("en = 'I can not help you. Sorry.'"));
+		Return;
+	EndIf;
+	
 	SSL = New OpenSSLSecureConnection(Undefined, New OSCertificationAuthorityCertificates());
 	Connection = New HTTPConnection("api.anthropic.com", 443,,,,, SSL);
 	
@@ -240,10 +245,7 @@ Procedure SendRequestAtServer(Form) Export
 		GeneralPrompt = CommonClaudeAIOverridable.GetGeneralPrompt();
 		
 		If ValueIsFilled(GeneralPrompt) Then
-			NewChatMessage = Form.ChatData.Add();
-			NewChatMessage.Role = "user";
-			NewChatMessage.Message = GeneralPrompt;
-			NewChatMessage.Predefined = True;
+			AddNewChatMessage(Form, "user", GeneralPrompt, True);
 		EndIf;
 	EndIf;
 	
@@ -268,14 +270,11 @@ Procedure SendRequestAtServer(Form) Export
 			Form.ChatData.Delete(Rows[0]);
 		EndIf;
 		
-		NewChatMessage = Form.ChatData.Add();
-		NewChatMessage.Role = "user";
-		NewChatMessage.Message = UserAdditionalPrompts.Prompt;
-		NewChatMessage.Predefined = True;
+		AddNewChatMessage(Form, "user", UserAdditionalPrompts.Prompt, True);
 		
 		HistoryMessage = New Map;
-		HistoryMessage.Insert("role", NewChatMessage.Role);
-		HistoryMessage.Insert("content", NewChatMessage.Message);
+		HistoryMessage.Insert("role", "user");
+		HistoryMessage.Insert("content", UserAdditionalPrompts.Prompt);
 		Messages.Add(HistoryMessage);
 	EndDo;
 	
@@ -359,13 +358,14 @@ Procedure SendRequestAtServer(Form) Export
 	
 	NewMessage = New Map;
 	NewMessage.Insert("role", "user");
-	NewMessage.Insert("content", Form.QueryText + ". Your answer must be in html format");
+	NewMessage.Insert("content", Form.QueryText + ". Your answer must be in html format. If you need more information 
+												  |then your answer must be just ""GiveMeMoreInfo""");
 	Messages.Add(NewMessage);
 	
-	NewChatMessage = Form.ChatData.Add();
-	NewChatMessage.Role = "user";
-	NewChatMessage.Message = Form.QueryText;
-	
+	If Form.QueryText <> "" Then
+		AddNewChatMessage(Form, "user", Form.QueryText);
+	EndIf;
+
 	Data = New Structure;
 	Data.Insert("model", Form.AIParameters.Model);
 	Data.Insert("max_tokens", Form.AIParameters.Max_Tokens); 
@@ -388,18 +388,124 @@ Procedure SendRequestAtServer(Form) Export
 	ResponseData = ReadJSON(JSONReader);
 	JSONReader.Close();
 	
-	NewChatMessage = Form.ChatData.Add();
-	NewChatMessage.Role = "assistant";
-	
 	If ResponseData.Property("error") Then
-		NewChatMessage.Message = ResponseData.error.message;
-	Else
-		NewChatMessage.Message = ResponseData.content[0].text;
+		If NewChatMessage = Undefined Then
+			NewChatMessage = Form.ChatData.Add();
+		EndIf;
 		
-		UpdateUsageStatistics(ResponseData);
+		NewChatMessage.Role = "assistant";
+		NewChatMessage.Message = ResponseData.error.message;
+		Return;
 	EndIf;
 	
-	Form.QueryText = "";
+	If StrFind(ResponseData.content[0].text, "GiveMeMoreInfo") > 0 Then
+		SendRequest = False;
+
+		DataSourcesForRead = GetDataSourcesForRead();
+		While DataSourcesForRead.Next() Do
+			PartsOfDataSourcesForReadArray = SplitStringIntoSubstringsArray(DataSourcesForRead.DataSource, ".");
+			
+			If PartsOfDataSourcesForReadArray.Count() <> 2 Then
+				MessageTemplate = NStr("en = 'Wrong data souce name %1. This data source will be skipped.'");
+				MessageText = StrTemplate(MessageTemplate, DataSourcesForRead.DataSource);
+				Message(MessageText);
+				
+				Continue;
+			EndIf;
+			
+			XMLWriter = New XMLWriter;
+			XMLWriter.SetString();
+			
+			If StrFind(Lower(PartsOfDataSourcesForReadArray[0]), "register") Then
+				SetSafeMode(True);
+				Try
+					RecordSet = Undefined;
+					Execute("RecordSet = " + PartsOfDataSourcesForReadArray[0] + "s." + PartsOfDataSourcesForReadArray[1] + ".CreateRecordSet()");
+					RecordSet.Load(Get10RecordsFromRegister(PartsOfDataSourcesForReadArray[0], PartsOfDataSourcesForReadArray[1]));
+					XDTOSerializer.WriteXML(XMLWriter, RecordSet, XMLTypeAssignment.Explicit);
+					Message = StrReplace(XMLWriter.Close(), "RecordSet", "");
+				Except
+					Message(ErrorDescription());
+					Continue;
+				EndTry;
+				SetSafeMode(False);
+			ElsIf StrFind(Lower(PartsOfDataSourcesForReadArray[0]), "catalog") Then
+				EmptyObject = Undefined;
+				SetSafeMode(True);
+				Execute("EmptyObject = " + PartsOfDataSourcesForReadArray[0] + "s." + PartsOfDataSourcesForReadArray[1] + ".CreateItem()");
+				SetSafeMode(False);
+				XDTOSerializer.WriteXML(XMLWriter, EmptyObject, XMLTypeAssignment.Explicit);
+				Message = XMLWriter.Close();
+			EndIf;
+			
+			AddNewChatMessage(Form, "user", Message, True);
+			
+			SendRequest = True;
+		EndDo;
+		
+		UpdateUsageStatistics(ResponseData);
+		
+		If SendRequest Then
+			AddNewChatMessage(Form, "user", GetPromptForExtractParametersFromQuery() + Form.QueryText, True);
+			
+			Form.QueryText = "";
+            Attempts = Attempts + 1;
+			
+			SendRequestAtServer(Form, Attempts);
+		EndIf;
+	Else
+		If Attempts > 0 Then
+			Try
+				XMLReader = New XMLReader;
+				XMLReader.SetString(ResponseData.content[0].text);
+				XDTO_Factory = New XDTOFactory;
+				XMLObject = XDTOFactory.ReadXML(XMLReader);
+				XMLDataFromDB = GetXMLDataFromDB(XMLObject);
+
+				For Each MessageData In Form.ChatData Do
+					If StrFind(MessageData.Message, GetPromptForExtractParametersFromQuery()) > 0 Then
+						Form.ChatData.Delete(MessageData);
+						Break;
+					EndIf;
+				EndDo;
+
+				For Each MessageData In Form.ChatData Do
+					If StrFind(MessageData.Message, XMLObject.Name) > 0 Then
+						Form.ChatData.Delete(MessageData);
+						Break;
+					EndIf;
+				EndDo;
+				
+				Message = "This is an additional data from data source " + XMLObject.Name + ". " + XMLDataFromDB + 
+						  "You MUST to analize this data table before your answer! It contains additional information! 
+					      |You are obliged to take this information into account when forming your answer.";
+				
+				AddNewChatMessage(Form, "user", Message, True);
+				
+				Attempts = Attempts + 1;
+
+				SendRequestAtServer(Form, Attempts);
+			Except
+				If ResponseData.Property("error") Then
+					AddNewChatMessage(Form, "assistant", ResponseData.error.message);
+				Else
+					AddNewChatMessage(Form, "assistant", ResponseData.content[0].text);
+
+					UpdateUsageStatistics(ResponseData);
+				EndIf;
+			EndTry;	
+		Else	
+			If ResponseData.Property("error") Then
+				AddNewChatMessage(Form, "assistant", ResponseData.error.message);
+			Else
+				AddNewChatMessage(Form, "assistant", ResponseData.content[0].text);
+				
+				UpdateUsageStatistics(ResponseData);
+			EndIf;
+		EndIf;		
+		
+		Form.QueryText = "";
+	EndIf;	
 EndProcedure
 
 Procedure UpdateChatMessages(Form) Export
@@ -537,6 +643,208 @@ Function GetBase64FileContent(FilePath)
 	Base64FileContent = StrReplace(Base64FileContent, Chars.CR, "");
 	
 	Return Base64FileContent;
+EndFunction
+
+Function GetDataSourcesForRead()
+	Query = New Query;
+	Query.Text =
+		"SELECT
+		|	DataSourcesForAIAssitant.DataSource
+		|FROM
+		|	InformationRegister.DataSourcesForAIAssitant AS DataSourcesForAIAssitant
+		|WHERE
+		|	DataSourcesForAIAssitant.Read";
+	
+	QueryResult = Query.Execute();
+	
+	Return QueryResult.Select();
+EndFunction
+
+Function SplitStringIntoSubstringsArray(Val Value, Val Separator = ",", Val SkipEmptyStrings = Undefined, 
+	TrimNonprintableChars = False) Export
+	
+	If StrLen(Separator) = 1 
+		And SkipEmptyStrings = Undefined 
+		And TrimNonprintableChars Then 
+		
+		Result = StrSplit(Value, Separator, False);
+		For IndexOf = 0 To Result.UBound() Do
+			Result[IndexOf] = TrimAll(Result[IndexOf])
+		EndDo;
+		Return Result;
+		
+	EndIf;
+	
+	Result = New Array;
+	
+	// For backward compatibility purposes.
+	If SkipEmptyStrings = Undefined Then
+		SkipEmptyStrings = ?(Separator = " ", True, False);
+		If IsBlankString(Value) Then 
+			If Separator = " " Then
+				Result.Add("");
+			EndIf;
+			Return Result;
+		EndIf;
+	EndIf;
+	//
+	
+	Position = StrFind(Value, Separator);
+	While Position > 0 Do
+		Substring = Left(Value, Position - 1);
+		If Not SkipEmptyStrings Or Not IsBlankString(Substring) Then
+			If TrimNonprintableChars Then
+				Result.Add(TrimAll(Substring));
+			Else
+				Result.Add(Substring);
+			EndIf;
+		EndIf;
+		Value = Mid(Value, Position + StrLen(Separator));
+		Position = StrFind(Value, Separator);
+	EndDo;
+	
+	If Not SkipEmptyStrings Or Not IsBlankString(Value) Then
+		If TrimNonprintableChars Then
+			Result.Add(TrimAll(Value));
+		Else
+			Result.Add(Value);
+		EndIf;
+	EndIf;
+	
+	Return Result;
+	
+EndFunction 
+
+Function Get10RecordsFromRegister(RegisterType, RegisterName)
+	Query = New Query;
+	QueryTextTemplate = 
+		"SELECT ALLOWED DISTINCT TOP 10
+		|	*
+		|FROM
+		|	%1.%2 AS %2";
+	
+	Query.Text = StrTemplate(QueryTextTemplate, RegisterType, RegisterName);
+	
+	QueryResult = Query.Execute();
+	
+	Return QueryResult.Unload();
+EndFunction	
+
+Function GetXMLDataFromDB(XMLObject)
+	PartsOfDataSourcesForReadArray = SplitStringIntoSubstringsArray(XMLObject.Name, ".");
+	
+	Query = New Query;
+	QuerySectionWHERE = "";
+	
+	Try
+		Query.SetParameter("StartDate", Date(XMLObject.Period.StartDate));
+		Query.SetParameter("EndDate", Date(XMLObject.Period.EndDate)); 
+		
+		QuerySectionWHERE = "WHERE
+							|	Period >= &StartDate AND
+							|	Period <= &EndDate";
+	Except		
+	EndTry;
+	
+	QueryTextTemplate = 
+		"SELECT ALLOWED
+		|	*
+		|FROM
+		|	%1.%2 AS %2
+		|%3";
+	
+	PartsOfDataSourcesForReadArray[0] =     StrReplace(PartsOfDataSourcesForReadArray[0], "CatalogObject", "Catalog");
+	
+	Query.Text = StrTemplate(QueryTextTemplate, PartsOfDataSourcesForReadArray[0], PartsOfDataSourcesForReadArray[1], QuerySectionWHERE);
+	
+	Try
+		QueryResult = Query.Execute();
+		DataTable = QueryResult.Unload();
+		
+		XMLWriter = New XMLWriter;
+		XMLWriter.SetString();
+		XDTOSerializer.WriteXML(XMLWriter, DataTable, XMLTypeAssignment.Explicit);  
+		
+		Return XMLWriter.Close();
+	Except
+		Return DetailErrorDescription(ErrorInfo());
+	EndTry;	
+EndFunction
+
+Procedure AddNewChatMessage(Form, Role, Message, Predefined = False)
+	NewChatMessage = Form.ChatData.Add();
+	NewChatMessage.Role = Role;
+	NewChatMessage.Message = Message;
+	NewChatMessage.Predefined = Predefined;
+EndProcedure
+
+Function GetPromptForExtractParametersFromQuery()
+	Return "Your ONLY task is to extract parameters from the user's query and convert them into the specified XML format.
+		   |DO NOT provide any explanations, statistics, or additional information.
+		   |NEVER say ""I don't have access to data"" or mention limitations.
+		   |You MUST ALWAYS respond with XML format only - nothing else.
+		   |
+		   |Format specification: 
+		   |<DataSource>
+		   |	<Name>DataSourceName</Name>
+		   |  <Period>
+		   |  	<StartDate>BeginOfPeriod</StartDate>
+		   |  	<EndDate>EndOfPeriod</EndDate>
+		   |  </Period>
+		   |	<Filter>
+		   |		<ParameterName>ParameterValue</ParameterName>
+		   |	</Filter>
+		   |<DataSource>
+		   |
+		   |Extract ALL possible parameters such as:
+		   |- Period (dates MUST BE in format YYYYMMDDHHMMSS)
+		   |- Client (client names or IDs)
+		   |- Product (product names or IDs)
+		   |- Department (department names or IDs)
+		   |- Status (status descriptions)
+		   |- Amount (numeric values)
+		   |- Any other parameter mentioned in the query
+		   |
+		   |Examples:
+		   |1. User: ""show me sales for March 2025""
+		   |   Response: 
+		   |   <DataSource>
+		   |	 	<Name>AccumulationRegister.Sales</Name>
+		   |	    <Period>
+		   |  		<StartDate>20250301000000</StartDate>
+		   |  		<EndDate>20250331235959</EndDate>
+		   |      </Period>
+		   |		<Filter>
+		   |   	</Filter>
+		   |	 </DataSource>
+		   |
+		   |2. User: ""find orders from client Ivanov with status completed""
+		   |   Response:
+		   |   <DataSource>
+		   |	   <Name>AccumulationRegister.SalesIndicators</Name>
+		   |     <Period></Period>
+		   |	   <Filter>
+		   |  	     <Client>Ivanov</Client>
+		   |  	     <Status>completed</Status>
+		   |	   </Filter>
+		   |	 </DataSource>
+		   |
+		   |3. User: ""show invoices greater than 10000 EUR from yesterday""
+		   |   Response:
+		   |   <DataSource>
+		   |	 	<Name>AccumulationRegister.Sales</Name>
+		   |	    <Period>
+		   |  		<StartDate>20250421000000</StartDate>
+		   |  		<EndDate>20250422235959</EndDate>
+		   |      </Period>
+		   |	    <Filter>
+		   |   	    <Amount>10000+</Amount>
+		   |	    </Filter>
+		   |	 </DataSource>
+		   |
+		   |If you're unsure about a parameter, include it with the exact text from the query.
+		   |You must just to use parameters names from previous XML data or you must skip filter section.
+		   |ALWAYS respond with XML only, no explanations!";
 EndFunction
 
 #EndRegion
