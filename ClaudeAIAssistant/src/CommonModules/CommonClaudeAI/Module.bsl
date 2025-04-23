@@ -363,7 +363,9 @@ Procedure SendRequestAtServer(Form, Attempts = 0) Export
 	Messages.Add(NewMessage);
 	
 	If Form.QueryText <> "" Then
-		AddNewChatMessage(Form, "user", Form.QueryText);
+		NewChatMessage = Form.ChatData.Add();
+		NewChatMessage.Role = "user";
+		NewChatMessage.Message = Form.QueryText;
 	EndIf;
 
 	Data = New Structure;
