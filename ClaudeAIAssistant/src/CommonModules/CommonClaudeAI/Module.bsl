@@ -861,4 +861,29 @@ Function GetPromptForExtractParametersFromQuery()
 		   |ALWAYS respond with XML only, no explanations!";
 EndFunction
 
+Function GetRegisterVirtualTables(RegisterType, RegisterName)
+	RegisterVirtualTables = New Structure;
+	
+	If Lower(RegisterType) = "accumulationregister" Then
+		If Metadata.AccumulationRegisters[RegisterName].RegisterType = Metadata.ObjectProperties.AccumulationRegisterType.Balance Then
+			RegisterVirtualTables.Insert("Balances", True);
+			RegisterVirtualTables.Insert("Turnovers", True);
+			RegisterVirtualTables.Insert("BalanceAndTurnovers", True);
+		Else
+			RegisterVirtualTables.Insert("Balances", False);
+			RegisterVirtualTables.Insert("Turnovers", True);
+			RegisterVirtualTables.Insert("BalanceAndTurnovers", False);	
+		EndIf;		
+	ElsIf lower(RegisterType) = "informationregister" Then
+		RegisterVirtualTables.Insert("SliceFirst", Metadata.InformationRegisters[RegisterName].EnableTotalsSliceFirst);
+		RegisterVirtualTables.Insert("SliceLast", Metadata.InformationRegisters[RegisterName].EnableTotalsSliceLast); 	
+	Else
+		RegisterVirtualTables.Insert("Balances", True);
+		RegisterVirtualTables.Insert("Turnovers", True);
+		RegisterVirtualTables.Insert("BalanceAndTurnovers", True);
+	EndIf;
+	
+	Return RegisterVirtualTables;
+EndFunction
+
 #EndRegion
