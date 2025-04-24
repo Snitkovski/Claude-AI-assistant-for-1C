@@ -438,6 +438,13 @@ Procedure SendRequestAtServer(Form, Attempts = 0) Export
 				SetSafeMode(False);
 				XDTOSerializer.WriteXML(XMLWriter, EmptyObject, XMLTypeAssignment.Explicit);
 				Message = XMLWriter.Close();
+			ElsIf StrFind(Lower(PartsOfDataSourcesForReadArray[0]), "document") Then
+				EmptyObject = Undefined;
+				SetSafeMode(True);
+				Execute("EmptyObject = " + PartsOfDataSourcesForReadArray[0] + "s." + PartsOfDataSourcesForReadArray[1] + ".CreateDocument()");
+				SetSafeMode(False);
+				XDTOSerializer.WriteXML(XMLWriter, EmptyObject, XMLTypeAssignment.Explicit);
+				Message = XMLWriter.Close();	
 			EndIf;
 			
 			AddNewChatMessage(Form, "user", Message, True);
@@ -741,9 +748,15 @@ Function GetXMLDataFromDB(XMLObject)
 		Query.SetParameter("StartDate", Date(XMLObject.Period.StartDate));
 		Query.SetParameter("EndDate", Date(XMLObject.Period.EndDate)); 
 		
-		QuerySectionWHERE = "WHERE
-							|	Period >= &StartDate AND
-							|	Period <= &EndDate";
+		QuerySectionWHERE_Template = "WHERE
+									|	Period >= &StartDate AND
+									|	Period <= &EndDate";
+									
+		If StrFind(Lower(PartsOfDataSourcesForReadArray[0]), "register") Then
+			QuerySectionWHERE = StrTemplate(QuerySectionWHERE_Template, "Period");
+		Else
+			QuerySectionWHERE = StrTemplate(QuerySectionWHERE_Template, "Date");
+		EndIf;							
 	Except		
 	EndTry;
 	
