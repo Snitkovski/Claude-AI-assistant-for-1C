@@ -460,7 +460,6 @@ Procedure SendRequestAtServer(Form, Attempts = 0) Export
 			Try
 				XMLReader = New XMLReader;
 				XMLReader.SetString(ResponseData.content[0].text);
-				XDTO_Factory = New XDTOFactory;
 				XMLObject = XDTOFactory.ReadXML(XMLReader);
 				XMLDataFromDB = GetXMLDataFromDB(XMLObject);
 
@@ -769,7 +768,7 @@ Function GetXMLDataFromDB(XMLObject)
 		
 		Return XMLWriter.Close();
 	Except
-		Return DetailErrorDescription(ErrorInfo());
+		Return ErrorDescription();
 	EndTry;	
 EndFunction
 

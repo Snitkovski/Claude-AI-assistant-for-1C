@@ -70,8 +70,6 @@ Procedure FillMetaDataTree(Filter = Undefined)
 	If Filter = Undefined Then
 		AddMetaDataBranch(ValMetaDataTree, Metadata.Catalogs, "Catalogs", "Catalog", "Catalogs", 24, 24);
 		AddMetaDataBranch(ValMetaDataTree, Metadata.Documents, "Documents", "Document", "Documents", 25, 25);
-		AddMetaDataBranch(ValMetaDataTree, Metadata.DocumentJournals, "DocumentJournals", "DocumentJournal", "Document journals", 33, 33);
-		AddMetaDataBranch(ValMetaDataTree, Metadata.ChartsOfAccounts, "ChartsOfAccounts", "ChartOfAccounts", "Charts of accounts", 40, 40);
 		AddMetaDataBranch(ValMetaDataTree, Metadata.InformationRegisters, "InformationRegisters", "InformationRegister", "Information registers", 44, 44);
 		AddMetaDataBranch(ValMetaDataTree, Metadata.AccumulationRegisters, "AccumulationRegisters", "AccumulationRegister", "Accumulation registers", 47, 47);
 		AddMetaDataBranch(ValMetaDataTree, Metadata.AccountingRegisters, "AccountingRegisters", "AccountingRegister", "Accounting registers", 48, 48);	
@@ -81,10 +79,6 @@ Procedure FillMetaDataTree(Filter = Undefined)
 				AddMetaDataBranch(ValMetaDataTree, Metadata.Catalogs, "Catalogs", "Catalog", "Catalogs", 24, 24);
 			ElsIf MetadataKind = "Documents" Then 
 				AddMetaDataBranch(ValMetaDataTree, Metadata.Documents, "Documents", "Document", "Documents", 25, 25);
-			ElsIf MetadataKind = "DocumentJournals" Then 
-				AddMetaDataBranch(ValMetaDataTree, Metadata.DocumentJournals, "DocumentJournals", "DocumentJournal", "Document journals", 33, 33);
-			ElsIf MetadataKind = "ChartsOfAccounts" Then 
-				AddMetaDataBranch(ValMetaDataTree, Metadata.ChartsOfAccounts, "ChartsOfAccounts", "ChartOfAccounts", "Charts of accounts", 40, 40);
 			ElsIf MetadataKind = "InformationRegisters" Then 
 				AddMetaDataBranch(ValMetaDataTree, Metadata.InformationRegisters, "InformationRegisters", "InformationRegister", "Information registers", 44, 44);
 			ElsIf MetadataKind = "AccumulationRegisters" Then 
