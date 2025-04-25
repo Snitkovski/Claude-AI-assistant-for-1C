@@ -439,6 +439,13 @@ Procedure SendRequestAtServer(Form, Attempts = 0) Export
 				EndTry;
 				
 				RegisterVirtualTables = GetRegisterVirtualTables(DataSourceType, DataSourceName);
+				If RegisterVirtualTables.Property("SliceFirst") Then
+				
+				ElsIf RegisterVirtualTables.Property("SliceLast") Then
+					
+				Else
+					// TODO:
+				EndIf;
 			ElsIf StrFind(Lower(DataSourceType), "catalog") Then
 				EmptyObject = Undefined;
 				
