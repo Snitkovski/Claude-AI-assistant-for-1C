@@ -406,7 +406,7 @@ Procedure SendRequestAtServer(Form, Attempts = 0) Export
 		DataSourcesForRead = GetDataSourcesForRead();
 		While DataSourcesForRead.Next() Do
 			PartsOfDataSourcesForReadArray = SplitStringIntoSubstringsArray(DataSourcesForRead.DataSource, ".");
-			
+
 			If PartsOfDataSourcesForReadArray.Count() <> 2 Then
 				MessageTemplate = NStr("en = 'Wrong data souce name %1. This data source will be skipped.'");
 				MessageText = StrTemplate(MessageTemplate, DataSourcesForRead.DataSource);
@@ -415,39 +415,49 @@ Procedure SendRequestAtServer(Form, Attempts = 0) Export
 				Continue;
 			EndIf;
 			
+			DataSourceType = PartsOfDataSourcesForReadArray[0];
+			DataSourceName = PartsOfDataSourcesForReadArray[1];
+			
 			XMLWriter = New XMLWriter;
 			XMLWriter.SetString();
 			
-			If StrFind(Lower(PartsOfDataSourcesForReadArray[0]), "register") Then
-				SetSafeMode(True);
+			If StrFind(Lower(DataSourceType), "register") Then
 				Try
 					RecordSet = Undefined;
-					Execute("RecordSet = " + PartsOfDataSourcesForReadArray[0] + "s." + PartsOfDataSourcesForReadArray[1] + ".CreateRecordSet()");
-					RecordSet.Load(Get10RecordsFromRegister(PartsOfDataSourcesForReadArray[0], PartsOfDataSourcesForReadArray[1]));
+					
+					SetSafeMode(True);
+					Execute("RecordSet = " + DataSourceType + "s." + DataSourceName + ".CreateRecordSet()");
+					SetSafeMode(False);
+					
+					RecordSet.Load(Get10RecordsFromRegister(DataSourceType, DataSourceName));
 					XDTOSerializer.WriteXML(XMLWriter, RecordSet, XMLTypeAssignment.Explicit);
 					Message = StrReplace(XMLWriter.Close(), "RecordSet", "");
+					AddNewChatMessage(Form, "user", XMLWriter.Close(), True);
 				Except
 					Message(ErrorDescription());
 					Continue;
 				EndTry;
-				SetSafeMode(False);
-			ElsIf StrFind(Lower(PartsOfDataSourcesForReadArray[0]), "catalog") Then
+				
+				RegisterVirtualTables = GetRegisterVirtualTables(DataSourceType, DataSourceName);
+			ElsIf StrFind(Lower(DataSourceType), "catalog") Then
 				EmptyObject = Undefined;
+				
 				SetSafeMode(True);
-				Execute("EmptyObject = " + PartsOfDataSourcesForReadArray[0] + "s." + PartsOfDataSourcesForReadArray[1] + ".CreateItem()");
+				Execute("EmptyObject = " + DataSourceType + "s." + DataSourceName + ".CreateItem()");
 				SetSafeMode(False);
+				
 				XDTOSerializer.WriteXML(XMLWriter, EmptyObject, XMLTypeAssignment.Explicit);
-				Message = XMLWriter.Close();
-			ElsIf StrFind(Lower(PartsOfDataSourcesForReadArray[0]), "document") Then
+				AddNewChatMessage(Form, "user", XMLWriter.Close(), True);
+			ElsIf StrFind(Lower(DataSourceType), "document") Then
 				EmptyObject = Undefined;
+				
 				SetSafeMode(True);
-				Execute("EmptyObject = " + PartsOfDataSourcesForReadArray[0] + "s." + PartsOfDataSourcesForReadArray[1] + ".CreateDocument()");
+				Execute("EmptyObject = " + DataSourceType + "s." + DataSourceName + ".CreateDocument()");
 				SetSafeMode(False);
+				
 				XDTOSerializer.WriteXML(XMLWriter, EmptyObject, XMLTypeAssignment.Explicit);
-				Message = XMLWriter.Close();	
+				AddNewChatMessage(Form, "user", XMLWriter.Close(), True);
 			EndIf;
-			
-			AddNewChatMessage(Form, "user", Message, True);
 			
 			SendRequest = True;
 		EndDo;
